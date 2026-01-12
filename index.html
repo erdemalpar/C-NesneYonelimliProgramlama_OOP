@@ -546,6 +546,18 @@
             const card = document.getElementById('education-card');
             card.style.top = '50%'; card.style.left = '50%'; card.style.transform = 'translate(-50%, -50%)'; card.style.display = 'block';
         }
+
+        // --- INITIALIZATION ---
+        window.onload = () => {
+            pushLog("OOP Müfredat Laboratuvarı Sistemleri yüklendi.", "cmt");
+            pushLog("Bellek segmentleri hazırlandı. @Runtime initialized.", "msg");
+
+            // Başlangıçta boş kalmaması için ilk kavramı simüle et
+            setTimeout(() => {
+                simuleEt('class');
+                pushLog("Başlangıç örneği: 'Parsel' sınıf şablonu belleğe yüklendi.", "kod");
+            }, 500);
+        };
     </script>
 </body>
 
