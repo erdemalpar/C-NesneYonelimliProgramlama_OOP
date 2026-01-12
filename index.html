@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>C# OOP Akademi: Master Seviye Görsel Eğitim</title>
+    <title>Kadastro OOP Akademi: Master Seviye Görsel Eğitim</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
@@ -39,7 +39,6 @@
             border-radius: 24px;
         }
 
-        /* Rehber Turu Vurgusu */
         .vurgu {
             position: relative;
             z-index: 9999 !important;
@@ -88,39 +87,31 @@
             border-radius: 10px;
         }
 
-        /* Kod Renklendirme */
         .kw {
             color: #c678dd;
             font-weight: bold;
         }
 
-        /* keyword */
         .type {
             color: #e5c07b;
         }
 
-        /* class/interface */
         .func {
             color: #61afef;
         }
 
-        /* method */
         .prop {
             color: #e06c75;
         }
 
-        /* field/prop */
         .str {
             color: #98c379;
         }
 
-        /* string */
         .cmt {
             color: #5c6370;
             font-style: italic;
         }
-
-        /* comment */
 
         .tab-btn.active {
             background: var(--blue);
@@ -161,30 +152,29 @@
     <!-- Header Section -->
     <header class="flex justify-between items-center px-8 py-4 cam-efekti shrink-0 border-b border-white/5">
         <div class="flex items-center gap-6">
-            <div class="bg-gradient-to-tr from-blue-600 to-indigo-700 p-4 rounded-2xl shadow-xl shadow-blue-500/20">
-                <i class="fa-solid fa-microchip text-white text-3xl"></i>
+            <div class="bg-gradient-to-tr from-indigo-600 to-blue-700 p-4 rounded-2xl shadow-xl shadow-blue-500/20">
+                <i class="fa-solid fa-map-location-dot text-white text-3xl"></i>
             </div>
             <div>
-                <h1 class="text-3xl font-black tracking-tight leading-none mb-1">C# OOP <span
-                        class="text-blue-500 italic">ACADEMY</span></h1>
+                <h1 class="text-3xl font-black tracking-tight leading-none mb-1">KADASTRO <span
+                        class="text-blue-500 italic">OOP LAB</span></h1>
                 <div class="flex items-center gap-2">
                     <span
-                        class="px-2 py-0.5 bg-blue-500/20 text-blue-400 text-[10px] font-black rounded uppercase tracking-widest">Master
-                        Edition</span>
+                        class="px-2 py-0.5 bg-blue-500/20 text-blue-400 text-[10px] font-black rounded uppercase tracking-widest">Digital
+                        Cadastre Edition</span>
                     <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                    <span class="text-slate-500 text-[10px] font-bold uppercase tracking-tight">Eğitim Protokolü
+                    <span class="text-slate-500 text-[10px] font-bold uppercase tracking-tight">Tapu Sicil Protokolü
                         Aktif</span>
                 </div>
             </div>
         </div>
 
         <div class="flex items-center gap-6">
-            <!-- Static Visualization -->
             <div id="static-display"
                 class="hidden px-5 py-3 bg-slate-900/50 rounded-2xl border border-white/5 flex items-center gap-4 group">
                 <div class="text-right">
-                    <p class="text-[9px] text-slate-500 font-black uppercase tracking-widest">Hayvan.Sayisi</p>
-                    <p class="text-[7px] text-blue-400 font-bold uppercase">Static Member (Bellekte Bir Tane)</p>
+                    <p class="text-[9px] text-slate-400 font-black uppercase tracking-widest">Tasinmaz.ToplamSayi</p>
+                    <p class="text-[7px] text-blue-400 font-bold uppercase">Küresel Sayaç (Static Member)</p>
                 </div>
                 <div class="text-3xl font-black text-white px-4 border-l border-white/10" id="static-val">0</div>
             </div>
@@ -208,7 +198,7 @@
                     <div class="flex items-center justify-between mb-6 border-b border-white/5 pb-4">
                         <span class="text-[11px] font-black text-slate-400 uppercase tracking-widest">Stack
                             Memory</span>
-                        <i class="fa-solid fa-dna text-blue-500 text-xs"></i>
+                        <i class="fa-solid fa-server text-blue-500 text-xs"></i>
                     </div>
                     <div id="stack-content" class="flex flex-col-reverse gap-3 overflow-y-auto pr-2 custom-scroll">
                         <!-- Value Types & References -->
@@ -221,21 +211,21 @@
                     <div id="factory-panel" class="p-8 cam-efekti bg-gradient-to-br from-slate-900/80 to-transparent">
                         <div class="flex items-center justify-between mb-8">
                             <h2 class="text-xl font-bold flex items-center gap-3">
-                                <i class="fa-solid fa-cube text-blue-500"></i>
-                                <span>Nesne Örneği Oluşturma (Object)</span>
+                                <i class="fa-solid fa-layer-group text-blue-500"></i>
+                                <span>Taşınmaz Tescili (Object Instantiation)</span>
                             </h2>
-                            <div class="text-[10px] text-slate-500 font-bold uppercase tracking-widest">Giriş
-                                Parametresi Bekleniyor</div>
+                            <div class="text-[10px] text-slate-500 font-bold uppercase tracking-widest">Parsel Bilgisi
+                                Girişi</div>
                         </div>
                         <div class="flex flex-wrap gap-5">
-                            <input type="text" id="objectNameGirdi" placeholder="Nesneye bir isim ver..."
+                            <input type="text" id="objectNameGirdi" placeholder="Ada/Parsel No giriniz..."
                                 class="bg-black/60 border border-slate-700/50 rounded-2xl px-6 py-4 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all w-64 kod-tipi text-white placeholder:text-slate-600">
-                            <button id="btn-aslan-create" onclick="hayvanTuret('aslan')"
-                                class="sim-btn px-6 py-4 bg-gradient-to-br from-amber-500 to-amber-700 text-white rounded-2xl font-black text-xs shadow-lg shadow-amber-900/20 uppercase tracking-wider">🦁
-                                Aslan (sealed class)</button>
-                            <button id="btn-maymun-create" onclick="hayvanTuret('maymun')"
-                                class="sim-btn px-6 py-4 bg-gradient-to-br from-emerald-600 to-emerald-800 text-white rounded-2xl font-black text-xs shadow-lg shadow-emerald-900/20 uppercase tracking-wider">🐒
-                                Maymun (class)</button>
+                            <button id="btn-taret-parsel" onclick="tasinmazTuret('parsel')"
+                                class="sim-btn px-6 py-4 bg-gradient-to-br from-blue-600 to-blue-800 text-white rounded-2xl font-black text-xs shadow-lg shadow-blue-900/20 uppercase tracking-wider">🗺️
+                                Parsel Ekle (sealed)</button>
+                            <button id="btn-taret-bina" onclick="tasinmazTuret('bina')"
+                                class="sim-btn px-6 py-4 bg-gradient-to-br from-emerald-600 to-emerald-800 text-white rounded-2xl font-black text-xs shadow-lg shadow-emerald-900/20 uppercase tracking-wider">🏠
+                                Bina Ekle (class)</button>
                         </div>
                     </div>
 
@@ -247,20 +237,20 @@
                             <div class="flex items-center gap-3">
                                 <span class="w-3 h-3 rounded-full bg-blue-500"></span>
                                 <span class="text-slate-200 text-xs font-black uppercase tracking-[0.2em]">Heap Memory
-                                    (Yığın Alanı)</span>
+                                    (Tescil Alanı)</span>
                             </div>
-                            <span class="text-[9px] text-slate-500 font-bold italic tracking-tighter">Referans tipleri
-                                burada saklanır</span>
+                            <span class="text-[9px] text-slate-500 font-bold italic tracking-tighter">Gerçek nesne
+                                verileri burada saklanır</span>
                         </div>
                         <div id="objects-wrapper" class="grid grid-cols-1 xl:grid-cols-2 gap-8">
                             <!-- Canlı Nesneler -->
                         </div>
 
-                        <!-- Boş Durum Görseli -->
                         <div id="empty-heap"
                             class="flex-1 flex flex-col items-center justify-center opacity-20 pointer-events-none">
-                            <i class="fa-solid fa-microchip text-8xl mb-6"></i>
-                            <p class="text-sm font-black uppercase tracking-widest">Bellek Henüz Tahsis Edilmedi</p>
+                            <i class="fa-solid fa-map text-8xl mb-6"></i>
+                            <p class="text-sm font-black uppercase tracking-widest">Tescilli Taşınmaz Bulunmamaktadır
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -273,69 +263,69 @@
                 <!-- Navigation Tabs -->
                 <div class="flex bg-black/40 p-2 gap-2 border-b border-white/5">
                     <button onclick="tabGoster('kod')" id="tab-kod"
-                        class="tab-btn active flex-1 py-4 text-[11px] font-black rounded-xl transition-all uppercase tracking-widest">Kaynak
-                        Kod (Src)</button>
+                        class="tab-btn active flex-1 py-4 text-[11px] font-black rounded-xl transition-all uppercase tracking-widest">Kod
+                        Yapısı (Source)</button>
                     <button onclick="tabGoster('teori')" id="tab-teori"
                         class="tab-btn flex-1 py-4 text-[11px] font-black rounded-xl transition-all uppercase tracking-widest text-slate-500 hover:bg-white/5">Müfredat
-                        (Curriculum)</button>
+                        (Kadastro Fokus)</button>
                     <button onclick="tabGoster('log')" id="tab-log"
-                        class="tab-btn flex-1 py-4 text-[11px] font-black rounded-xl transition-all uppercase tracking-widest text-slate-500 hover:bg-white/5">Çıktı
-                        (Output)</button>
+                        class="tab-btn flex-1 py-4 text-[11px] font-black rounded-xl transition-all uppercase tracking-widest text-slate-500 hover:bg-white/5">Sicil
+                        Çıktısı (Logs)</button>
                 </div>
 
                 <!-- Code Container -->
                 <div id="cont-kod" class="flex-1 overflow-auto p-8 kod-tipi text-[13px] leading-relaxed bg-[#0d1117]">
                     <div id="code-content" class="space-y-8">
-                        <!-- Sec 1: Building Blocks -->
                         <div id="code-group-1">
-                            <div class="cmt mb-2">// 1. Temel Yapı Taşları</div>
+                            <div class="cmt mb-2">// 1. Kadastro Temel Yapı Taşları</div>
                             <div id="code-interface"><span class="kw">public interface</span> <span
-                                    class="type">IVarlik</span> { <span class="kw">void</span> <span
-                                    class="func">Tanimla</span>(); }</div>
+                                    class="type">IKaydedilebilir</span> { <span class="kw">void</span> <span
+                                    class="func">TescilEt</span>(); }</div>
                             <div class="mt-2"><span class="kw">public abstract class</span> <span
-                                    class="type">Hayvan</span> : <span class="type">IVarlik</span> {</div>
-                            <div id="code-field" class="pl-6"><span class="kw">private int</span> <span
-                                    class="prop">_enerji</span>; <span class="cmt">// Field (Veri)</span></div>
+                                    class="type">Tasinmaz</span> : <span class="type">IKaydedilebilir</span> {</div>
+                            <div id="code-field" class="pl-6"><span class="kw">private double</span> <span
+                                    class="prop">_yuzolcumu</span>; <span class="cmt">// Field (Korumalı Veri)</span>
+                            </div>
                             <div id="code-prop" class="pl-6"><span class="kw">public string</span> <span
-                                    class="prop">Isim</span> { <span class="kw">get</span>; <span class="kw">set</span>;
-                                } <span class="cmt">// Property (Özellik)</span></div>
+                                    class="prop">KimlikNo</span> { <span class="kw">get</span>; <span
+                                    class="kw">set</span>; } <span class="cmt">// Property (Ada/Parsel No)</span></div>
                             <div id="code-static" class="pl-6"><span class="kw">public static int</span> <span
-                                    class="prop">Sayisi</span> = <span class="str">0</span>; <span class="cmt">// Static
-                                    (Sınıfa Ait)</span></div>
+                                    class="prop">ToplamSayi</span> = <span class="str">0</span>; <span class="cmt">//
+                                    Static (Tüm Sicil İçin Tek)</span></div>
                             <div id="code-constructor" class="pl-6 mt-3">
-                                <span class="kw">public</span> <span class="type">Hayvan</span>(<span
-                                    class="kw">string</span> <span class="prop">isim</span>) { <span class="cmt">//
-                                    Constructor (Yapıcı)</span><br>
-                                <span class="pl-6 kw">this</span>.<span class="prop">Isim</span> = <span
-                                    class="prop">isim</span>; <br>
+                                <span class="kw">public</span> <span class="type">Tasinmaz</span>(<span
+                                    class="kw">string</span> <span class="prop">no</span>) { <span class="cmt">//
+                                    Constructor (Yeni Kayıt)</span><br>
+                                <span class="pl-6 kw">this</span>.<span class="prop">KimlikNo</span> = <span
+                                    class="prop">no</span>; <br>
                                 <span class="pl-0">}</span>
+                            </div>
+                            <div class="pl-6 mt-2"><span class="kw">public virtual void</span> <span
+                                    class="func">BilgiYazdir</span>() { ... } <span class="cmt">// Virtual Metot</span>
                             </div>
                             <div class="pl-0 mt-2">}</div>
                         </div>
 
-                        <!-- Sec 2: Principles -->
                         <div id="code-group-2">
-                            <div class="cmt mb-2">// 2. Dört Ana Prensip</div>
+                            <div class="cmt mb-2">// 2. Türetme ve Özelleştirme</div>
                             <div id="code-inheritance">
-                                <span class="kw">public sealed class</span> <span class="type">Aslan</span> : <span
-                                    class="type">Hayvan</span> { <span class="cmt">// Kalıtım & Sealed</span><br>
+                                <span class="kw">public sealed class</span> <span class="type">Parsel</span> : <span
+                                    class="type">Tasinmaz</span> { <span class="cmt">// Kalıtım & Sealed (Son
+                                    Birim)</span><br>
                                 <div class="pl-6">
-                                    <span class="kw">public</span> <span class="type">Aslan</span>(<span
-                                        class="kw">string</span> <span class="prop">ad</span>) : <span
-                                        class="kw">base</span>(<span class="prop">ad</span>) { <span class="cmt">// base
-                                        Keyword</span><br>
-                                    <span class="pl-6 type">Hayvan</span>.<span class="prop">Sayisi</span>++;<br>
+                                    <span class="kw">public</span> <span class="type">Parsel</span>(<span
+                                        class="kw">string</span> <span class="prop">pNo</span>) : <span
+                                        class="kw">base</span>(<span class="prop">pNo</span>) { <span class="cmt">//
+                                        base Kullanımı</span><br>
+                                    <span class="type">Tasinmaz</span>.<span class="prop">ToplamSayi</span>++;<br>
                                     <span class="pl-0">}</span>
                                 </div>
                                 <div id="code-override" class="pl-6 mt-3">
-                                    <span class="kw">public override void</span> <span class="func">SesCikar</span>() {
-                                    <span class="cmt">// Polimorfizm - Override</span><br>
+                                    <span class="kw">public override void</span> <span class="func">BilgiYazdir</span>()
+                                    { <span class="cmt">// Override (Özelleştirme)</span><br>
                                     <span class="pl-6 func">Console</span>.<span class="func">WriteLine</span>(<span
-                                        class="str">"Kükredi!"</span>);<br>
+                                        class="str">"Parsel Detayları Yazdırıldı."</span>);<br>
                                     <span class="pl-0">}</span>
-                                    <div class="pl-0 mt-3"><span class="kw">~Aslan</span>() { <span
-                                            class="type">Hayvan</span>.<span class="prop">Sayisi</span>--; } <span
-                                            class="cmt">// Destructor (Yıkıcı)</span></div>
                                 </div>
                                 <div class="pl-0">}</div>
                             </div>
@@ -348,51 +338,24 @@
                     <div class="space-y-12">
                         <section class="border-l-4 border-blue-600 pl-8">
                             <h4 class="text-white font-black text-xl mb-6 flex items-center gap-3">
-                                <span class="text-blue-600">01.</span> TEMEL YAPI TAŞLARI
+                                <span class="text-blue-600">01.</span> KADASTRO OOP TEMELLERİ
                             </h4>
-                            <div class="grid gap-6">
+                            <div class="grid gap-6 text-[13px]">
                                 <div
                                     class="p-6 bg-white/5 rounded-3xl border border-white/5 hover:border-blue-500/30 transition-all">
-                                    <b class="text-blue-400 block mb-2 uppercase text-xs tracking-widest font-black">Sınıf
-                                        (Class) vs Nesne (Object)</b>
-                                    Sınıf mimarın çizdiği projedir, Nesne ise o projeden inşa edilen GERÇEK binadır.
-                                    Proje bellekte yer tutmaz, bina tutar.
+                                    <b
+                                        class="text-blue-400 block mb-2 uppercase text-[10px] tracking-widest font-black">Sınıf
+                                        vs Nesne (Pafta vs Arsa)</b>
+                                    Sınıf, tapudaki boş bir tescil şablonudur (Blueprint). Nesne ise o şablona göre
+                                    tescil edilmiş, konumu ve alanı belli olan GERÇEK bir parseldir.
                                 </div>
                                 <div
                                     class="p-6 bg-white/5 rounded-3xl border border-white/5 hover:border-emerald-500/30 transition-all">
-                                    <b class="text-emerald-400 block mb-2 uppercase text-xs tracking-widest font-black">Alanlar
-                                        (Fields) vs Özellikler (Props)</b>
-                                    Alan verinin ham halidir (private). Özellik (Property) ise veriye get/set
-                                    kontrolleri eklenmiş "akıllı" halidir.
-                                </div>
-                            </div>
-                        </section>
-
-                        <section class="border-l-4 border-purple-600 pl-8">
-                            <h4 class="text-white font-black text-xl mb-6 flex items-center gap-3">
-                                <span class="text-purple-600">02.</span> DÖRT ANA PRENSİP
-                            </h4>
-                            <div class="space-y-6">
-                                <div class="p-6 cam-efekti border-purple-500/20">
-                                    <h5 class="text-purple-400 font-black mb-3 italic">Kapsülleme (Encapsulation)</h5>
-                                    <p class="text-[13px] leading-relaxed">Nesnenin iç işleyişini ve verilerini dış
-                                        dünyadan gizlemek, onlara sadece BELİRLİ YÖNTEMLERLE (get/set) erişilmesini
-                                        sağlamaktır.</p>
-                                </div>
-                                <div class="p-6 cam-efekti border-rose-500/20">
-                                    <h5 class="text-rose-400 font-black mb-3 italic">Polimorfizm (Çok Biçimlilik)</h5>
-                                    <p class="text-[13px] leading-relaxed mb-4">Bir nesnenin farklı durumlarda farklı
-                                        davranışlar sergileyebilmesidir.</p>
-                                    <div class="flex gap-4">
-                                        <div class="flex-1 p-3 bg-black/40 rounded-2xl border border-white/5 text-xs">
-                                            <span class="text-white font-bold block mb-1 underline">Overloading</span>
-                                            Parametre çeşitliliği.
-                                        </div>
-                                        <div class="flex-1 p-3 bg-black/40 rounded-2xl border border-white/5 text-xs">
-                                            <span class="text-white font-bold block mb-1 underline">Overriding</span>
-                                            Atadan gelen davranışı ezme.
-                                        </div>
-                                    </div>
+                                    <b
+                                        class="text-emerald-400 block mb-2 uppercase text-[10px] tracking-widest font-black">Kapsülleme
+                                        (Alan Koruması)</b>
+                                    Taşınmazın yüzölçümü doğrudan değişemez (private). Sadece 'Cins Değişikliği' veya
+                                    'İfraz' gibi yasal yollarla (Public Property/Getter-Setter) güncellenebilir.
                                 </div>
                             </div>
                         </section>
@@ -400,88 +363,32 @@
                         <section class="border-l-4 border-amber-600 pl-8">
                             <h4
                                 class="text-white font-black text-xl mb-6 flex items-center gap-3 italic tracking-tight">
-                                <span class="text-amber-600">03.</span> DERİNLEMESİNE SOLID MİMARİSİ
+                                <span class="text-amber-600">02.</span> KADASTRODA SOLID PRENSİPLERİ
                             </h4>
                             <div class="space-y-6">
-                                <!-- S: SRP -->
                                 <div
                                     class="p-5 cam-efekti border-white/5 bg-gradient-to-r from-amber-500/5 to-transparent">
                                     <div class="flex items-center gap-3 mb-3">
                                         <span
                                             class="w-8 h-8 rounded-lg bg-amber-500 text-black flex items-center justify-center font-black">S</span>
-                                        <b class="text-white text-sm uppercase tracking-widest">Single Responsibility
-                                            (Tek Sorumluluk)</b>
+                                        <b class="text-white text-xs uppercase tracking-widest">Single
+                                            Responsibility</b>
                                     </div>
                                     <p class="text-[12px] text-slate-400 leading-relaxed">
-                                        <b>Mantık:</b> Bir sınıfın değişmek için sadece tek bir nedeni olmalıdır.<br>
-                                        <b>Uygulama:</b> Projemizde `Hayvan` sınıfı sadece verileri yönetir. Ekrana
-                                        çizim veya Terminal çıktıları (UI) başka modüllerin işidir.
+                                        Parsel sınıfı sadece geometrik ve mülkiyet verisini tutar. Vergi borcu hesaplama
+                                        veya İmar durumu sorgulama işini başka sınıflar yapar.
                                     </p>
                                 </div>
-
-                                <!-- O: OCP -->
                                 <div
                                     class="p-5 cam-efekti border-white/5 bg-gradient-to-r from-amber-500/5 to-transparent">
                                     <div class="flex items-center gap-3 mb-3">
                                         <span
                                             class="w-8 h-8 rounded-lg bg-amber-500 text-black flex items-center justify-center font-black">O</span>
-                                        <b class="text-white text-sm uppercase tracking-widest">Open/Closed
-                                            (Açık/Kapalı)</b>
+                                        <b class="text-white text-xs uppercase tracking-widest">Open/Closed</b>
                                     </div>
                                     <p class="text-[12px] text-slate-400 leading-relaxed">
-                                        <b>Mantık:</b> Kod genişlemeye açık, ancak değişime kapalı olmalıdır.<br>
-                                        <b>Uygulama:</b> Yeni bir hayvan türü eklerken `Hayvan` sınıfını bozmuyoruz,
-                                        sadece ondan miras alan yeni bir sınıf (Zurafa vb.) ekliyoruz.
-                                    </p>
-                                </div>
-
-                                <!-- L: LSP -->
-                                <div
-                                    class="p-5 cam-efekti border-white/5 bg-gradient-to-r from-amber-500/5 to-transparent">
-                                    <div class="flex items-center gap-3 mb-3">
-                                        <span
-                                            class="w-8 h-8 rounded-lg bg-amber-500 text-black flex items-center justify-center font-black">L</span>
-                                        <b class="text-white text-sm uppercase tracking-widest">Liskov Substitution
-                                            (Yerine Geçme)</b>
-                                    </div>
-                                    <p class="text-[12px] text-slate-400 leading-relaxed">
-                                        <b>Mantık:</b> Alt sınıflar, üst sınıfların yerine hatasız geçebilmelidir.<br>
-                                        <b>Uygulama:</b> `Hayvan` tipindeki bir koleksiyonda `Aslan` nesnesi
-                                        kullanıldığında, tüm ana metotlar beklenildiği gibi çalışmaya devam eder.
-                                    </p>
-                                </div>
-
-                                <!-- I: ISP -->
-                                <div
-                                    class="p-5 cam-efekti border-white/5 bg-gradient-to-r from-amber-500/5 to-transparent">
-                                    <div class="flex items-center gap-3 mb-3">
-                                        <span
-                                            class="w-8 h-8 rounded-lg bg-amber-500 text-black flex items-center justify-center font-black">I</span>
-                                        <b class="text-white text-sm uppercase tracking-widest">Interface Segregation
-                                            (Arayüz Ayrımı)</b>
-                                    </div>
-                                    <p class="text-[12px] text-slate-400 leading-relaxed">
-                                        <b>Mantık:</b> Kimse kullanmadığı metodu barındıran interface'i uygulamaya
-                                        zorlanmamalıdır.<br>
-                                        <b>Uygulama:</b> `IVarlik` gibi küçük interface'ler kullanarak sınıflara sadece
-                                        ihtiyacı olan yetenekleri kazandırıyoruz.
-                                    </p>
-                                </div>
-
-                                <!-- D: DIP -->
-                                <div
-                                    class="p-5 cam-efekti border-white/5 bg-gradient-to-r from-amber-500/5 to-transparent">
-                                    <div class="flex items-center gap-3 mb-3">
-                                        <span
-                                            class="w-8 h-8 rounded-lg bg-amber-500 text-black flex items-center justify-center font-black">D</span>
-                                        <b class="text-white text-sm uppercase tracking-widest">Dependency Inversion
-                                            (Bağımlılığın Tersine Çevrilmesi)</b>
-                                    </div>
-                                    <p class="text-[12px] text-slate-400 leading-relaxed">
-                                        <b>Mantık:</b> Bağımlılıklar somut sınıflara değil, soyutlamalara
-                                        (interface/abstract) olmalıdır.<br>
-                                        <b>Uygulama:</b> Simülasyon motorumuz `Aslan` nesnelerine değil, `IVarlik`
-                                        imzasını taşıyan her şeye hizmet verebilir.
+                                        Sisteme 'Zeytinlik' veya 'Sit Alanı' gibi yeni taşınmaz tipleri eklemek için
+                                        mevcut 'Tasinmaz' kodunu değiştirmeyiz, yeni sınıflar türetiriz.
                                     </p>
                                 </div>
                             </div>
@@ -502,17 +409,16 @@
     <div id="education-card" class="ders-karti cam-efekti p-10 border-blue-600/50 shadow-blue-600/40">
         <div class="flex items-center justify-between mb-8">
             <span id="edu-badge"
-                class="px-4 py-1.5 bg-blue-600 rounded-full text-[10px] font-black italic shadow-lg shadow-blue-600/30">MÜFREDAT
+                class="px-4 py-1.5 bg-blue-600 rounded-full text-[10px] font-black italic shadow-lg shadow-blue-600/30">SICIL
                 ADIMI: 1</span>
             <div class="flex gap-1 h-1">
                 <div class="w-8 h-1 bg-blue-600 rounded"></div>
                 <div class="w-4 h-1 bg-slate-700 rounded"></div>
-                <div class="w-4 h-1 bg-slate-700 rounded"></div>
             </div>
         </div>
         <h3 id="edu-title" class="text-2xl font-black text-white italic tracking-tight uppercase mb-4 leading-tight">
-            Master Başlığı</h3>
-        <p id="edu-desc" class="text-slate-300 text-[15px] leading-relaxed mb-10 border-l-3 border-blue-600 pl-6"></p>
+            Kadastro Örneği</h3>
+        <p id="edu-desc" class="text-slate-300 text-sm leading-relaxed mb-10 border-l-3 border-blue-600 pl-6"></p>
 
         <div class="flex gap-4">
             <button id="edu-next-btn" onclick="turNext()"
@@ -523,7 +429,7 @@
             <button id="edu-wait-btn"
                 class="hidden flex-1 py-5 bg-amber-600 text-white rounded-2xl font-black cursor-wait opacity-80 flex items-center justify-center gap-4 animate-pulse">
                 <i class="fa-solid fa-hourglass-half"></i>
-                <span>EYLEM BEKLENİYOR...</span>
+                <span>TESCİL BEKLENİYOR...</span>
             </button>
         </div>
     </div>
@@ -531,30 +437,28 @@
     <div id="rehber-kaplama"></div>
 
     <script>
-        // --- SİMÜLASYON MOTORU (STATE) ---
         let tumNesneler = [];
-        let globalId = 1;
-        let hayvanSayisiStatic = 0;
+        let globalId = 100;
+        let toplamSayiStatic = 0;
         let tur_aktif = false;
         let tur_adim = 0;
 
         const MODELLER = {
-            aslan: { icon: '🦁', clazz: 'Aslan', voice: 'ROARRR!', col: 'amber', theme: 'from-amber-600/30' },
-            maymun: { icon: '🐒', clazz: 'Maymun', voice: 'UAAA!', col: 'emerald', theme: 'from-emerald-700/30' }
+            parsel: { icon: '🗺️', clazz: 'Parsel', action: 'Ölçüm Yap', color: 'blue', theme: 'from-blue-600/30' },
+            bina: { icon: '🏠', clazz: 'Bina', action: 'Kat Listele', color: 'emerald', theme: 'from-emerald-700/30' }
         };
 
-        // --- TEMEL FONKSİYONLAR ---
-        function hayvanTuret(key) {
+        function tasinmazTuret(key) {
             const input = document.getElementById('objectNameGirdi');
-            const nick = input.value.trim() || (key === 'aslan' ? 'Aslan Kral' : 'Çiko');
-            const data = { ...MODELLER[key], id: globalId++, ad: nick, enerji: 100 };
+            const no = input.value.trim() || (key === 'parsel' ? '101/5' : 'Ada 42');
+            const data = { ...MODELLER[key], id: globalId++, ad: no, alan: 250 };
 
             tumNesneler.push(data);
-            hayvanSayisiStatic++;
+            toplamSayiStatic++;
             syncUI();
             input.value = '';
 
-            pushLog(`new ${data.clazz}("${nick}"); // Nesne Heap'e yerleşti.`, 'kod');
+            pushLog(`new ${data.clazz}("${no}"); // Taşınmaz Heap alanına tescil edildi.`, 'kod');
 
             if (tur_aktif && turSeti[tur_adim].eylem === 'turet') {
                 setTimeout(turNext, 300);
@@ -565,29 +469,27 @@
             const obj = tumNesneler.find(n => n.id === id);
             if (!obj) return;
 
-            if (tip === 'ses') {
-                pushLog(`${obj.ad.toLowerCase()}.SesCikar(); // Polimorfizm`, 'kod');
-                pushLog(`[System]: ${obj.icon} ${obj.ad} ${obj.voice}`, 'msg');
-                if (tur_aktif && turSeti[tur_adim].eylem === 'ses') turNext();
-            } else if (tip === 'besle') {
-                obj.enerji = Math.min(obj.enerji + 20, 100);
-                pushLog(`${obj.ad.toLowerCase()}.Enerji += 20; // Kapsülleme (Setter)`, 'kod');
+            if (tip === 'action') {
+                pushLog(`${obj.ad}.DetayGoster(); // Polimorfizm Devrede`, 'kod');
+                pushLog(`[Kadastro]: ${obj.icon} ${obj.ad} numaralı taşınmazın detayları listelendi.`, 'msg');
+                if (tur_aktif && turSeti[tur_adim].eylem === 'action') turNext();
+            } else if (tip === 'alan') {
+                obj.alan += 50;
+                pushLog(`${obj.ad}.Alan += 50; // Kapsülleme (Set Aksiyonu)`, 'kod');
                 syncUI();
             } else if (tip === 'sil') {
                 tumNesneler = tumNesneler.filter(n => n.id !== id);
-                hayvanSayisiStatic--;
+                toplamSayiStatic--;
                 syncUI();
-                pushLog(`// ~${obj.clazz}() çağrıldı. GC belleği topladı.`, 'cmt');
+                pushLog(`// ~${obj.clazz}() Yıkıcı Metot Çalıştı. Kayıt Arşivlendi.`, 'cmt');
             }
         }
 
         function syncUI() {
-            // Static val
             const stVal = document.getElementById('static-val');
-            stVal.innerText = hayvanSayisiStatic;
-            document.getElementById('static-display').classList.toggle('hidden', hayvanSayisiStatic === 0);
+            stVal.innerText = toplamSayiStatic;
+            document.getElementById('static-display').classList.toggle('hidden', toplamSayiStatic === 0);
 
-            // Objects Grid
             const wrapper = document.getElementById('objects-wrapper');
             const emptyHint = document.getElementById('empty-heap');
             wrapper.innerHTML = '';
@@ -604,23 +506,23 @@
                         <div class="flex justify-between items-start mb-6">
                             <span class="text-5xl drop-shadow-2xl">${o.icon}</span>
                             <div class="text-right">
-                                <div class="text-xl font-black text-white">${o.ad}</div>
-                                <div class="text-[9px] font-black uppercase text-white/30 tracking-widest">${o.clazz} Instance</div>
+                                <div class="text-lg font-black text-white">${o.ad}</div>
+                                <div class="text-[9px] font-black uppercase text-white/40 tracking-widest">${o.clazz} Birimi</div>
                             </div>
                         </div>
                         <div class="mb-6 space-y-2">
                             <div class="flex justify-between text-[10px] font-bold">
-                                <span class="text-slate-500 uppercase">Enerji (Property)</span>
-                                <span class="text-blue-400">${o.enerji}%</span>
+                                <span class="text-slate-500 uppercase">Tapu Alanı (Property)</span>
+                                <span class="text-blue-400">${o.alan} m²</span>
                             </div>
                             <div class="w-full h-1.5 bg-black/40 rounded-full overflow-hidden">
-                                <div class="h-full bg-blue-500 transition-all duration-500" style="width: ${o.enerji}%"></div>
+                                <div class="h-full bg-blue-500 transition-all duration-500" style="width: ${Math.min(o.alan / 5, 100)}%"></div>
                             </div>
                         </div>
                         <div class="flex gap-3">
-                            <button onclick="eylemYurut(${o.id}, 'ses')" id="obj-ses-${o.id}" class="flex-1 py-3 bg-white/5 hover:bg-white/10 text-[10px] font-black rounded-xl border border-white/10 tracking-widest transition-all uppercase">Ses Çıkar</button>
-                            <button onclick="eylemYurut(${o.id}, 'besle')" class="flex-1 py-3 bg-white/5 hover:bg-white/10 text-[10px] font-black rounded-xl border border-white/10 tracking-widest transition-all uppercase">Besle</button>
-                            <button onclick="eylemYurut(${o.id}, 'sil')" class="px-4 bg-rose-900/20 text-rose-500 rounded-xl border border-rose-500/20 hover:bg-rose-600/30 transition-all"><i class="fa-solid fa-trash-can text-xs"></i></button>
+                            <button onclick="eylemYurut(${o.id}, 'action')" id="obj-act-${o.id}" class="flex-1 py-3 bg-white/5 hover:bg-white/10 text-[9px] font-black rounded-xl border border-white/5 tracking-widest transition-all uppercase">${o.action}</button>
+                            <button onclick="eylemYurut(${o.id}, 'alan')" class="flex-1 py-3 bg-white/5 hover:bg-white/10 text-[9px] font-black rounded-xl border border-white/5 tracking-widest transition-all uppercase">İfraz Yap</button>
+                            <button onclick="eylemYurut(${o.id}, 'sil')" class="px-4 bg-rose-900/10 text-rose-500 rounded-xl border border-rose-500/10 hover:bg-rose-600/20 transition-all"><i class="fa-solid fa-archive text-xs"></i></button>
                         </div>
                     `;
                     wrapper.appendChild(el);
@@ -632,12 +534,12 @@
         function updateStack() {
             const list = document.getElementById('stack-content');
             list.innerHTML = `
-                <div class="p-4 bg-white/5 border border-white/5 rounded-3xl mb-4 group hover:border-blue-500/30 transition-all cursor-help" title="Bellek doğrudan Stack üzerindedir">
+                <div class="p-4 bg-white/5 border border-white/5 rounded-3xl mb-4 group hover:border-blue-500/30 transition-all cursor-help" title="Yerel değişkenler Stack'tedir">
                     <div class="text-blue-500 font-black text-[9px] mb-3 flex items-center gap-2">
-                        <i class="fa-solid fa-microchip"></i> VALUE TYPE (Değer Tipi)
+                        <i class="fa-solid fa-hashtag text-[8px]"></i> VALUE TYPE (Kadastro No)
                     </div>
                     <div class="flex justify-between text-[11px] font-mono">
-                        <span class="text-slate-500">int yas =</span> <span class="text-amber-400">5</span>
+                        <span class="text-slate-500">int adaNo =</span> <span class="text-amber-400">752</span>
                     </div>
                 </div>
             `;
@@ -646,13 +548,10 @@
                 item.className = 'p-3 bg-blue-900/10 border border-blue-500/10 rounded-3xl flex justify-between items-center group transition-all cursor-help';
                 item.innerHTML = `
                     <div class="flex flex-col">
-                        <b class="text-blue-400 font-black text-[11px] uppercase tracking-tighter">${o.ad.toLowerCase()}</b>
-                        <span class="text-[8px] text-slate-600 font-bold uppercase tracking-widest mt-1">Reference Pointer</span>
+                        <b class="text-blue-400 font-black text-[11px] uppercase tracking-tighter">${o.ad}</b>
+                        <span class="text-[8px] text-slate-600 font-bold uppercase tracking-widest mt-1">Pointer @${o.id}</span>
                     </div>
-                    <div class="text-right">
-                        <div class="text-slate-500 text-[10px] font-mono">@0x${(o.id + 700).toString(16)}</div>
-                        <i class="fa-solid fa-link text-[7px] text-slate-700"></i>
-                    </div>
+                    <i class="fa-solid fa-arrow-right-long text-[10px] text-slate-700"></i>
                 `;
                 list.appendChild(item);
             });
@@ -661,7 +560,7 @@
         function pushLog(val, tip) {
             const box = document.getElementById('terminal-content');
             const clr = tip === 'kod' ? 'text-white border-l-2 border-blue-500 pl-3' : (tip === 'cmt' ? 'text-slate-500 italic' : 'text-emerald-400 font-black');
-            box.innerHTML += `<div class="py-2 ${clr} transition-all animate-in slide-in-from-left duration-300"><span class="opacity-20 mr-3">CLI></span>${val}</div>`;
+            box.innerHTML += `<div class="py-2 ${clr}"><span class="opacity-20 mr-3">SICIL></span>${val}</div>`;
             box.scrollTop = box.scrollHeight;
         }
 
@@ -674,33 +573,23 @@
             document.getElementById(`tab-${id}`).classList.add('active');
         }
 
-        // --- MASTER EĞİTİM TURU (20 ADIM) ---
         const turSeti = [
-            { title: "Hoş Geldiniz ⚔️", desc: "C# OOP Master dünyasına hoş geldiniz. Bu akademi, zihin haritasındaki her bir dalı canlı örneklerle size öğretecek.", target: null },
-            { title: "1. Sınıf (Class) 📐", desc: "Sınıf nesnenin mimari projesidir. 'public abstract class Hayvan' satırına bakın. Bu sadece bir taslak, henüz hafızada yer yok!", target: "code-group-1", on: () => tabGoster('kod') },
-            { title: "2. Alanlar vs Özellikler 🧱", desc: "Verinin kendisi hamdır (private _enerji). Özellik (Property) ise ona akıllı bir maske takar (get/set).", target: "code-field" },
-            { title: "3. Constructor (Yapıcı) 🏗️", desc: "Nesne doğarken çalışan ilk kod bloğudur. 'this' anahtar kelimesi o an doğan nesnenin ta kendisidir.", target: "code-constructor" },
-            { title: "4. Miras (Inheritance) 🧬", desc: "Aslan sınıfı Hayvan'dan türer (: Hayvan). 'base' kelimesiyle babasından miras aldığı yapıları kullanır.", target: "code-inheritance" },
-            { title: "5. Kalıtım Sonu: Sealed 🧊", desc: "'sealed' kelimesi meşaleyi burada söndürür; Aslan'dan başka kimse türeyemez.", target: "code-inheritance" },
-            { title: "6. Nesne ve Bellek ✨", desc: "Şimdi 'Aslan Ekle' diyerek kuramsal projeyi bellek üzerindeki GERÇEK bir nesneye dönüştürün.", target: "btn-aslan-create", eylemli: true, eylem: 'turet' },
-            { title: "7. Stack vs Heap 🧠", desc: "Bakın! Nesnenin adı Stack'te bir referans olarak, tüm gövdesi ve verileri ise Heap'te kocaman bir kart olarak oluştu.", target: "stack-area" },
-            { title: "8. Statik (Static) ⚡", desc: "Nesnelerden bağımsız, sınıfın tümüne ait bir ortak değişken. Sağ üstteki sayaç 'Hayvan.Sayisi' alanıdır ve tektir.", target: "static-display", on: () => document.getElementById('static-display').classList.remove('hidden') },
-            { title: "9. Kapsülleme (Encapsulation) 🔐", desc: "Şimdi nesnenin 'Besle' butonuna basın. Enerji artarken koddaki Property (set) bloğunun nasıl çalıştığını düşünün.", targetSelector: () => tumNesneler[0] ? `obj-card-${tumNesneler[0].id}` : null },
-            { title: "10. Polimorfizm: Override 🎭", desc: "Dinamik Çok Biçimlilik! Hayvan'daki virtual metot, Aslan tarafından override edildi. Butona basın ve sadece Aslan'a özel sesi duyunn.", targetSelector: () => tumNesneler[0] ? `obj-ses-${tumNesneler[0].id}` : null, eylemli: true, eylem: 'ses' },
-            { title: "11. Soyutlama (Interface) ☁️", desc: "Interface sadece 'imza' atar. 'IVarlik' ile her varlığın tanımlanma zorunluluğu getirdik.", target: "code-interface" },
-            {
-                title: "12. SOLID Standartları 💎",
-                desc: "OOP prensiplerini profesyonel bir mimariye dönüştüren kurallar bütünüdür. Her bir prensibin projedeki karşılığını Müfredat sekmesinde görebilirsiniz.",
-                target: "tab-teori",
-                on: () => tabGoster('teori')
-            },
-            { title: "Eğitim Tamamlandı! 🏆", desc: "Zihin haritasındaki her bir kutucuk artık koda ve görsele döküldü. Artık laboratuvar sizin!", target: null }
+            { title: "Kadastro OOP Akademi 🗺️", desc: "Mesleğiniz olan Kadastro terminolojisiyle OOP kavramlarını keşfedin. Parseller, adalar ve tapu sicili üzerinden C# mimarisini inceleyelim.", target: null },
+            { title: "1. Sınıf (Tescil Şablonu) 📐", desc: "'Tasinmaz' sınıfı bir taslaktır. Henüz yer kaplamaz, sadece bir parselin hangi verilere (Ada, Parsel No, Alan) sahip olacağını belirler.", target: "code-group-1", on: () => tabGoster('kod') },
+            { title: "2. Kapsülleme (Güvenli Alan) 🔐", desc: "Taşınmazın yüzölçümü (private _yuzolcumu) dışarıdan rastgele değiştirilemez. Sadece 'Property' protokolü ile kontrol edilebilir.", target: "code-field" },
+            { title: "3. Miras (Kalıtım) 🧬", desc: "Parsel ve Bina sınıfları, ortak 'Tasinmaz' özelliklerini miras alır. Kod tekrarını önler ve hiyerarşi kurar.", target: "code-inheritance" },
+            { title: "4. Tescil ve Bellek ✨", desc: "Şimdi 'Parsel Ekle' diyerek bir şablonu belleğe (Heap) GERÇEK bir taşınmaz nesnesi olarak kaydedin.", target: "btn-taret-parsel", eylemli: true, eylem: 'turet' },
+            { title: "5. Stack & Heap (Arşiv) 🧠", desc: "Stack alanında parselin referansı (dosya no), Heap alanında ise tüm parsel verileri oluştu. Bellek yönetimi tam burada başlar.", target: "stack-area" },
+            { title: "6. Statik Üyeler ⚡", desc: "Tüm tapu dairesi için TEK olan veriler statiktir. Sağ üstteki 'ToplamSayi' her nesne için ayrı değil, sınıfın tamamı için tektir.", target: "static-display" },
+            { title: "7. Polimorfizm (Çok Biçimlilik) 🎭", desc: "Her taşınmazın detay gösterme biçimi farklıdır. Butona basarak 'Virtual/Override' mekanizmasının nasıl çalıştığını görün.", targetSelector: () => tumNesneler[0] ? `obj-act-${tumNesneler[0].id}` : null, eylemli: true, eylem: 'action' },
+            { title: "8. Soyutlama (Interface) ☁️", desc: "'IKaydedilebilir' bir sözleşmedir. Sisteme eklenen her şeyin mutlaka tescil edilmesini garanti eder.", target: "code-interface" },
+            { title: "9. SOLID ve Gelecek 💎", desc: "Müfredat sekmesinde, Kadastro projelerinde SOLID mimarisinin nasıl uygulandığını detaylıca inceleyebilirsiniz.", target: "tab-teori", on: () => tabGoster('teori') },
+            { title: "Eğitim Tamamlandı! 🏆", desc: "Kendi mesleğinizden örneklerle OOP dünyasına hakim oldunuz. Artık istediğiniz gibi taşınmaz tescil edebilirsiniz!", target: null }
         ];
 
         function akademiTurunuBaslat() {
-            tur_aktif = true; tur_adim = 0; tumNesneler = []; hayvanSayisiStatic = 0;
+            tur_aktif = true; tur_adim = 0; tumNesneler = []; toplamSayiStatic = 0;
             syncUI();
-            document.getElementById('static-display').classList.add('hidden');
             document.getElementById('rehber-kaplama').style.display = 'block';
             document.getElementById('education-card').style.display = 'block';
             renderStep();
@@ -722,7 +611,7 @@
             const step = turSeti[tur_adim];
             document.getElementById('edu-title').innerText = step.title;
             document.getElementById('edu-desc').innerText = step.desc;
-            document.getElementById('edu-badge').innerText = `MÜFREDAT ADIMI: ${tur_adim + 1} / ${turSeti.length}`;
+            document.getElementById('edu-badge').innerText = `SICIL ADIMI: ${tur_adim + 1} / ${turSeti.length}`;
 
             const nextBtn = document.getElementById('edu-next-btn');
             const waitBtn = document.getElementById('edu-wait-btn');
@@ -751,15 +640,8 @@
                 const cardWidth = card.offsetWidth || 440;
 
                 let t, l;
-
-                if (r.bottom + cardHeight + 40 < window.innerHeight) {
-                    t = r.bottom + 40;
-                } else {
-                    t = r.top - cardHeight - 40;
-                }
-
+                if (r.bottom + cardHeight + 40 < window.innerHeight) { t = r.bottom + 40; } else { t = r.top - cardHeight - 40; }
                 l = r.left + (r.width / 2) - (cardWidth / 2);
-
                 if (l < 20) l = 20;
                 if (l + cardWidth > window.innerWidth - 20) l = window.innerWidth - cardWidth - 20;
                 if (t < 20) t = 20;

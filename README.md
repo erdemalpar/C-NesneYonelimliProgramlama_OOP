@@ -1,73 +1,47 @@
-# 🚀 C# OOP Academy: Master Seviye Görsel Eğitim Platformu
+# 🗺️ Kadastro OOP Lab: Master Seviye Görsel Eğitim Platformu
 
-C# Nesne Yönelimli Programlama (OOP) kavramlarını, teoriden öteye taşıyarak **canlı bellek simülasyonu**, **etkileşimli kod paneli** ve **adım adım müfredat rehberi** ile öğreten modern bir web uygulamasıdır.
+C# Nesne Yönelimli Programlama (OOP) kavramlarını, **Kadastro Mühendisliği** (Taşınmaz, Parsel, Ada, Tapu Sicili) terminolojisiyle harmanlayarak öğreten interaktif bir eğitim platformudur.
 
 ## 🔗 Canlı Demo
 👉 [Projeyi Canlı İncele](https://erdemalpar.github.io/C-NesneYonelimliProgramlama_OOP/)
 
 ---
 
-## 🧠 Müfredat Yapısı
+## 🏛️ Kadastro OOP Mimarisi
 
-Uygulama, C# OOP dünyasını 3 ana bölümde ve 16 interaktif adımda ele alır:
+Uygulama, karmaşık yazılım mimarisini mesleki terimlerle somutlaştırır:
 
-### 1. Temel Yapı Taşları (Building Blocks)
-*   **Sınıf (Class):** Nesnenin şablonu/planı.
-*   **Nesne (Object):** Sınıfın canlı örneği (Instance).
-*   **Metotlar (Methods):** Davranışlar ve işlevler.
-*   **Alanlar (Fields/Props):** Veriler ve akıllı özellikler.
+### 1. Temel Yapı Taşları
+*   **Sınıf (Class):** Tapudaki boş bir tescil şablonu veya pafta örneğidir.
+*   **Nesne (Object):** O şablona göre tescil edilmiş, alanı ve konumu belli GERÇEK bir parseldir.
+*   **Kapsülleme (Encapsulation):** Taşınmazın yüzölçümünün (`private`) doğrudan değiştirilememesi, sadece yasal yollarla (ifraz, cins değişikliği) güncellenmesi.
 
-### 2. Dört Ana Prensip (The 4 Pillars)
-*   **Kapsülleme (Encapsulation):** Erişim belirleyiciler (`public`, `private`, `protected`, `internal`) ve `get/set` özellikleri.
-*   **Kalıtım (Inheritance):** Temel/Türetilmiş sınıflar, `:` operatörü ve `sealed` kelimesi.
-*   **Çok Biçimlilik (Polymorphism):** 
-    *   Statik (Overloading - Aşırı Yükleme)
-    *   Dinamik (Virtual/Override - Metot Ezme)
-*   **Soyutlama (Abstraction):** Abstract Class ve Interface (Sadece imza barındıran yapılar).
+### 2. Dört Ana Prensip
+*   **Kalıtım (Inheritance):** Parsel ve Bina sınıflarının ortak 'Tasinmaz' özelliklerini miras alması.
+*   **Çok Biçimlilik (Polymorphism):** Her taşınmazın tipine göre farklı tescil veya detay gösterme davranışı sergilemesi.
+*   **Soyutlama (Abstraction):** `IKaydedilebilir` arayüzü ile sisteme eklenen her birimin tescil edilme zorunluluğunun getirilmesi.
 
-### 3. Sınıf Üyeleri ve Yardımcı Kavramlar
-*   **Constructor:** Yapıcı metotlar ve nesne başlangıç yönetimi.
-*   **Destructor:** Yıkıcı metotlar ve çöp toplayıcı (GC).
-*   **Static:** Nesneden bağımsız, sınıfa ait üyeler.
-*   **this:** Mevcut nesne referansı.
-*   **base:** Üst sınıf (ata) referansı.
-
-### 3. SOLID Prensipleri (Professional Design)
-*   **S (SRP):** Sınıfların tek sorumluluğu olması (Örn: Hayvan sınıfı sadece veriyi yönetir).
-*   **O (OCP):** Yeni türlerin mevcut kodu bozmadan eklenmesi (`virtual`/`override`).
-*   **L (LSP):** Alt sınıfların ata sınıfların yerini tam olarak doldurabilmesi.
-*   **I (ISP):** Küçük ve odaklanmış arayüzler (`IVarlik`).
-*   **D (DIP):** Somut sınıflar yerine arayüzlere bağımlılık.
+### 3. SOLID Prensipleri (Kadastro Fokus)
+*   **SRP:** Parsel sınıfının sadece mülkiyet verisinden sorumlu olması.
+*   **OCP:** Sisteme 'Sit Alanı' gibi yeni türlerin ana kodu bozmadan eklenmesi.
+*   **LSP:** Bir binanın, taşınmaz listesinde hatasız temsil edilebilmesi.
+*   **ISP:** Sınıflara sadece ihtiyacı olan yeteneklerin (Örn: `IKoordinatli`) verilmesi.
+*   **DIP:** Sistem mimarisinin somut parsellere değil, soyut taşınmaz modellerine bağlı olması.
 
 ---
 
 ## ✨ Öne Çıkan Özellikler
 
-*   **Canlı Bellek Simülasyonu:** Nesnelerin **Stack** üzerindeki referanslarını ve **Heap** üzerindeki veri bloklarını anlık olarak görselleştirir.
-*   **Master Müfredat Turu:** Kullanıcıyı işlem yapmaya zorlayan ("Nesne Türet", "Ses Çıkar" vb.) akıllı bir 16 adımlık eğitim akışı.
-*   **Fira Code & Terminal:** Gerçek bir IDE deneyimi sunan kod renklendirme ve simülasyon çıktıları.
-*   **Akıllı Konumlandırma:** Eğitim kartlarının butonların üzerine binmesini engelleyen gelişmiş konumlandırma algoritması.
-*   **Premium Tasarım:** Dark mode, cam efekti (glassmorphism) ve pürüzsüz animasyonlar.
+*   **Tescil Simülasyonu:** Yeni ada/parsel tescil ederek bellekteki (Stack/Heap) yansımasını görün.
+*   **Akıllı Müfredat Turu:** 12 adımlık, işlem odaklı rehberli eğitim.
+*   **Master Mimari:** `static`, `this`, `base`, `sealed` gibi ileri seviye anahtar kelimelerin kadastro bağlamında kullanımı.
+*   **Premium UI:** Dark mode, glassmorphism ve akıllı konumlandırmalı eğitim kartları.
 
 ---
 
 ## 🛠️ Teknolojiler
 
-*   **HTML5 & Semantik Yapı**
-*   **Tailwind CSS** (Modern UI)
-*   **Vanilla JavaScript** (Simülasyon Motoru)
-*   **Font Awesome** (İkon Seti)
-
----
-
-## 📸 Ekran Görüntüsü
-*(Ekran görüntüsü eklenebilir)*
-
-## 🛠️ Kurulum
-
-Projeyi yerelinizde çalıştırmak için:
-1. Depoyu klonlayın: `git clone https://github.com/erdemalpar/C-NesneYonelimliProgramlama_OOP.git`
-2. `index.html` dosyasını herhangi bir modern tarayıcıda açın.
+*   **Tailwind CSS** | **Vanilla JavaScript** | **Font Awesome** | **Fira Code**
 
 ---
 
