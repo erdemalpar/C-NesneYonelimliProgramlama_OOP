@@ -398,6 +398,29 @@
                                 </div>
                             </div>
                         </section>
+
+                        <section class="border-l-4 border-amber-600 pl-8">
+                            <h4 class="text-white font-black text-xl mb-6 flex items-center gap-3">
+                                <span class="text-amber-600">03.</span> SOLID PRENSİPLERİ
+                            </h4>
+                            <div
+                                class="space-y-4 text-[12px] bg-amber-500/5 p-6 rounded-3xl border border-amber-500/20">
+                                <div class="flex gap-3"><b class="text-amber-400 w-12 shrink-0">SRP</b> <span><b>Single
+                                            Responsibility:</b> Her nesnenin tek bir sorumluluğu olmasıdır.</span></div>
+                                <div class="flex gap-3"><b class="text-amber-400 w-12 shrink-0">OCP</b>
+                                    <span><b>Open/Closed:</b> Kod değişime kapalı, gelişime açık olmalıdır (Örn: Yeni
+                                        hayvan eklemek).</span></div>
+                                <div class="flex gap-3"><b class="text-amber-400 w-12 shrink-0">LSP</b> <span><b>Liskov
+                                            Substitution:</b> Miras alan nesneler ata nesnenin tüm özelliklerini
+                                        karşılamalıdır.</span></div>
+                                <div class="flex gap-3"><b class="text-amber-400 w-12 shrink-0">ISP</b>
+                                    <span><b>Interface Segregation:</b> Büyük interface'ler yerine özelleşmiş küçük
+                                        interface'ler kullanılmalıdır.</span></div>
+                                <div class="flex gap-3"><b class="text-amber-400 w-12 shrink-0">DIP</b>
+                                    <span><b>Dependency Inversion:</b> Bağlılıklar somut sınıflara değil, soyutlamalara
+                                        (interface) olmalıdır.</span></div>
+                            </div>
+                        </section>
                     </div>
                 </div>
 
@@ -600,6 +623,12 @@
             { title: "9. Kapsülleme (Encapsulation) 🔐", desc: "Şimdi nesnenin 'Besle' butonuna basın. Enerji artarken koddaki Property (set) bloğunun nasıl çalıştığını düşünün.", targetSelector: () => tumNesneler[0] ? `obj-card-${tumNesneler[0].id}` : null },
             { title: "10. Polimorfizm: Override 🎭", desc: "Dinamik Çok Biçimlilik! Hayvan'daki virtual metot, Aslan tarafından override edildi. Butona basın ve sadece Aslan'a özel sesi duyunn.", targetSelector: () => tumNesneler[0] ? `obj-ses-${tumNesneler[0].id}` : null, eylemli: true, eylem: 'ses' },
             { title: "11. Soyutlama (Interface) ☁️", desc: "Interface sadece 'imza' atar. 'IVarlik' ile her varlığın tanımlanma zorunluluğu getirdik.", target: "code-interface" },
+            {
+                title: "12. SOLID Standartları 💎",
+                desc: "OOP prensiplerini profesyonel bir mimariye dönüştüren kurallar bütünüdür. Her bir prensibin projedeki karşılığını Müfredat sekmesinde görebilirsiniz.",
+                target: "tab-teori",
+                on: () => tabGoster('teori')
+            },
             { title: "Eğitim Tamamlandı! 🏆", desc: "Zihin haritasındaki her bir kutucuk artık koda ve görsele döküldü. Artık laboratuvar sizin!", target: null }
         ];
 

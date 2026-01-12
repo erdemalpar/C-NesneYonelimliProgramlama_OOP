@@ -32,6 +32,13 @@ Uygulama, C# OOP dünyasını 3 ana bölümde ve 16 interaktif adımda ele alır
 *   **this:** Mevcut nesne referansı.
 *   **base:** Üst sınıf (ata) referansı.
 
+### 3. SOLID Prensipleri (Professional Design)
+*   **S (SRP):** Sınıfların tek sorumluluğu olması (Örn: Hayvan sınıfı sadece veriyi yönetir).
+*   **O (OCP):** Yeni türlerin mevcut kodu bozmadan eklenmesi (`virtual`/`override`).
+*   **L (LSP):** Alt sınıfların ata sınıfların yerini tam olarak doldurabilmesi.
+*   **I (ISP):** Küçük ve odaklanmış arayüzler (`IVarlik`).
+*   **D (DIP):** Somut sınıflar yerine arayüzlere bağımlılık.
+
 ---
 
 ## ✨ Öne Çıkan Özellikler
