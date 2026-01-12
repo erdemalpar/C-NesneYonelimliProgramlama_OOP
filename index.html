@@ -74,11 +74,9 @@
             position: fixed;
             inset: 0;
             background: rgba(0, 0, 0, 0.5);
-            /* Hafif karartma eklendi */
             z-index: 9990;
             display: none;
             pointer-events: none;
-            /* Tıklamaların altına geçmesine izin ver */
         }
 
         ::-webkit-scrollbar {
@@ -400,25 +398,92 @@
                         </section>
 
                         <section class="border-l-4 border-amber-600 pl-8">
-                            <h4 class="text-white font-black text-xl mb-6 flex items-center gap-3">
-                                <span class="text-amber-600">03.</span> SOLID PRENSİPLERİ
+                            <h4
+                                class="text-white font-black text-xl mb-6 flex items-center gap-3 italic tracking-tight">
+                                <span class="text-amber-600">03.</span> DERİNLEMESİNE SOLID MİMARİSİ
                             </h4>
-                            <div
-                                class="space-y-4 text-[12px] bg-amber-500/5 p-6 rounded-3xl border border-amber-500/20">
-                                <div class="flex gap-3"><b class="text-amber-400 w-12 shrink-0">SRP</b> <span><b>Single
-                                            Responsibility:</b> Her nesnenin tek bir sorumluluğu olmasıdır.</span></div>
-                                <div class="flex gap-3"><b class="text-amber-400 w-12 shrink-0">OCP</b>
-                                    <span><b>Open/Closed:</b> Kod değişime kapalı, gelişime açık olmalıdır (Örn: Yeni
-                                        hayvan eklemek).</span></div>
-                                <div class="flex gap-3"><b class="text-amber-400 w-12 shrink-0">LSP</b> <span><b>Liskov
-                                            Substitution:</b> Miras alan nesneler ata nesnenin tüm özelliklerini
-                                        karşılamalıdır.</span></div>
-                                <div class="flex gap-3"><b class="text-amber-400 w-12 shrink-0">ISP</b>
-                                    <span><b>Interface Segregation:</b> Büyük interface'ler yerine özelleşmiş küçük
-                                        interface'ler kullanılmalıdır.</span></div>
-                                <div class="flex gap-3"><b class="text-amber-400 w-12 shrink-0">DIP</b>
-                                    <span><b>Dependency Inversion:</b> Bağlılıklar somut sınıflara değil, soyutlamalara
-                                        (interface) olmalıdır.</span></div>
+                            <div class="space-y-6">
+                                <!-- S: SRP -->
+                                <div
+                                    class="p-5 cam-efekti border-white/5 bg-gradient-to-r from-amber-500/5 to-transparent">
+                                    <div class="flex items-center gap-3 mb-3">
+                                        <span
+                                            class="w-8 h-8 rounded-lg bg-amber-500 text-black flex items-center justify-center font-black">S</span>
+                                        <b class="text-white text-sm uppercase tracking-widest">Single Responsibility
+                                            (Tek Sorumluluk)</b>
+                                    </div>
+                                    <p class="text-[12px] text-slate-400 leading-relaxed">
+                                        <b>Mantık:</b> Bir sınıfın değişmek için sadece tek bir nedeni olmalıdır.<br>
+                                        <b>Uygulama:</b> Projemizde `Hayvan` sınıfı sadece verileri yönetir. Ekrana
+                                        çizim veya Terminal çıktıları (UI) başka modüllerin işidir.
+                                    </p>
+                                </div>
+
+                                <!-- O: OCP -->
+                                <div
+                                    class="p-5 cam-efekti border-white/5 bg-gradient-to-r from-amber-500/5 to-transparent">
+                                    <div class="flex items-center gap-3 mb-3">
+                                        <span
+                                            class="w-8 h-8 rounded-lg bg-amber-500 text-black flex items-center justify-center font-black">O</span>
+                                        <b class="text-white text-sm uppercase tracking-widest">Open/Closed
+                                            (Açık/Kapalı)</b>
+                                    </div>
+                                    <p class="text-[12px] text-slate-400 leading-relaxed">
+                                        <b>Mantık:</b> Kod genişlemeye açık, ancak değişime kapalı olmalıdır.<br>
+                                        <b>Uygulama:</b> Yeni bir hayvan türü eklerken `Hayvan` sınıfını bozmuyoruz,
+                                        sadece ondan miras alan yeni bir sınıf (Zurafa vb.) ekliyoruz.
+                                    </p>
+                                </div>
+
+                                <!-- L: LSP -->
+                                <div
+                                    class="p-5 cam-efekti border-white/5 bg-gradient-to-r from-amber-500/5 to-transparent">
+                                    <div class="flex items-center gap-3 mb-3">
+                                        <span
+                                            class="w-8 h-8 rounded-lg bg-amber-500 text-black flex items-center justify-center font-black">L</span>
+                                        <b class="text-white text-sm uppercase tracking-widest">Liskov Substitution
+                                            (Yerine Geçme)</b>
+                                    </div>
+                                    <p class="text-[12px] text-slate-400 leading-relaxed">
+                                        <b>Mantık:</b> Alt sınıflar, üst sınıfların yerine hatasız geçebilmelidir.<br>
+                                        <b>Uygulama:</b> `Hayvan` tipindeki bir koleksiyonda `Aslan` nesnesi
+                                        kullanıldığında, tüm ana metotlar beklenildiği gibi çalışmaya devam eder.
+                                    </p>
+                                </div>
+
+                                <!-- I: ISP -->
+                                <div
+                                    class="p-5 cam-efekti border-white/5 bg-gradient-to-r from-amber-500/5 to-transparent">
+                                    <div class="flex items-center gap-3 mb-3">
+                                        <span
+                                            class="w-8 h-8 rounded-lg bg-amber-500 text-black flex items-center justify-center font-black">I</span>
+                                        <b class="text-white text-sm uppercase tracking-widest">Interface Segregation
+                                            (Arayüz Ayrımı)</b>
+                                    </div>
+                                    <p class="text-[12px] text-slate-400 leading-relaxed">
+                                        <b>Mantık:</b> Kimse kullanmadığı metodu barındıran interface'i uygulamaya
+                                        zorlanmamalıdır.<br>
+                                        <b>Uygulama:</b> `IVarlik` gibi küçük interface'ler kullanarak sınıflara sadece
+                                        ihtiyacı olan yetenekleri kazandırıyoruz.
+                                    </p>
+                                </div>
+
+                                <!-- D: DIP -->
+                                <div
+                                    class="p-5 cam-efekti border-white/5 bg-gradient-to-r from-amber-500/5 to-transparent">
+                                    <div class="flex items-center gap-3 mb-3">
+                                        <span
+                                            class="w-8 h-8 rounded-lg bg-amber-500 text-black flex items-center justify-center font-black">D</span>
+                                        <b class="text-white text-sm uppercase tracking-widest">Dependency Inversion
+                                            (Bağımlılığın Tersine Çevrilmesi)</b>
+                                    </div>
+                                    <p class="text-[12px] text-slate-400 leading-relaxed">
+                                        <b>Mantık:</b> Bağımlılıklar somut sınıflara değil, soyutlamalara
+                                        (interface/abstract) olmalıdır.<br>
+                                        <b>Uygulama:</b> Simülasyon motorumuz `Aslan` nesnelerine değil, `IVarlik`
+                                        imzasını taşıyan her şeye hizmet verebilir.
+                                    </p>
+                                </div>
                             </div>
                         </section>
                     </div>
@@ -578,7 +643,7 @@
             `;
             tumNesneler.forEach(o => {
                 const item = document.createElement('div');
-                item.className = 'p-4 bg-blue-900/10 border border-blue-500/10 rounded-3xl flex justify-between items-center group transition-all cursor-help';
+                item.className = 'p-3 bg-blue-900/10 border border-blue-500/10 rounded-3xl flex justify-between items-center group transition-all cursor-help';
                 item.innerHTML = `
                     <div class="flex flex-col">
                         <b class="text-blue-400 font-black text-[11px] uppercase tracking-tighter">${o.ad.toLowerCase()}</b>
@@ -679,28 +744,22 @@
 
             if (target) {
                 target.classList.add('vurgu');
-                // Elemanın tıklanabilir olduğundan emin ol (Overlay engellememeli)
                 target.style.pointerEvents = 'auto';
-
                 target.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 const r = target.getBoundingClientRect();
-                const cardRect = card.getBoundingClientRect();
                 const cardHeight = card.offsetHeight || 320;
                 const cardWidth = card.offsetWidth || 440;
 
                 let t, l;
 
-                // Dikey Konumlandırma: Altta yer varsa alta, yoksa üste
                 if (r.bottom + cardHeight + 40 < window.innerHeight) {
                     t = r.bottom + 40;
                 } else {
                     t = r.top - cardHeight - 40;
                 }
 
-                // Yatay Konumlandırma: Butonu ortala
                 l = r.left + (r.width / 2) - (cardWidth / 2);
 
-                // Ekran Sınırları Kontrolü
                 if (l < 20) l = 20;
                 if (l + cardWidth > window.innerWidth - 20) l = window.innerWidth - cardWidth - 20;
                 if (t < 20) t = 20;
