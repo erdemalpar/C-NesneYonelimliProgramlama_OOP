@@ -374,34 +374,49 @@
     <div id="rehber-kaplama"></div>
 
     <script>
+        // Uygulama Durum Takibi (İlişkisellik için)
+        let modelState = {
+            classDefined: false,
+            objectInstantiated: false,
+            lastObjectId: null
+        };
+
         const THEMES = {
-            // 1. Temel Yapı Taşları
-            'class': { title: "Sınıf (Class)", color: "blue", icon: "fa-file-code", code: `<span class="mod">public class</span> <span class="type">Parsel</span> {<br>&nbsp;&nbsp;<span class="mod">public string</span> <span class="prop">No</span>;<br>&nbsp;&nbsp;<span class="mod">public double</span> <span class="prop">Alan</span>;<br>}`, desc: "Sınıf bir kalıptır. Nesnenin şablonu/planıdır." },
-            'object': { title: "Nesne (Object/Instance)", color: "emerald", icon: "fa-box", code: `<span class="type">Parsel</span> p <span class="atama-vurgu">=</span> <span class="kw">new</span> <span class="type">Parsel</span>(); <span class="cmt">// Atama (Assignment)</span><br><span class="cmt">// Sınıfın canlı örneği bellekte oluştu.</span>`, desc: "new anahtar kelimesiyle heap üzerinde yer açılır ve referans (p) stack'e atanır." },
-            'methods': { title: "Metotlar (Methods)", color: "purple", icon: "fa-bolt", code: `<span class="mod">public void</span> <span class="func">TescilEt</span>() {<br>&nbsp;&nbsp;<span class="func">Console</span>.<span class="func">WriteLine</span>(<span class="str">"Kaydedildi."</span>);<br>}`, desc: "Nesnenin davranışları/işlevleridir." },
-            'fields': { title: "Alanlar (Fields/Props)", color: "amber", icon: "fa-tag", code: `<span class="mod">public string</span> <span class="prop">Ad</span>; <span class="cmt">// Alan</span><br><span class="mod">public int</span> <span class="prop">Ada</span> { <span class="kw">get</span>; <span class="kw">set</span>; } <span class="cmt">// Özellik</span>`, desc: "Nesnenin verileri/özellikleridir." },
+            // 1. Temel Yapı Taşları (ARABA TEMASI)
+            'class': {
+                title: "Sınıf (Araba Şablonu)", color: "blue", icon: "fa-car-side",
+                code: `<span class="mod">public class</span> <span class="type">Araba</span> {<br>&nbsp;&nbsp;<span class="cmt">// Sınıf bir projedir/çizimdir.</span><br>}`,
+                desc: "Sınıf (Class), nesnenin nasıl olacağını belirleyen bir plandır. 'Araba' burada bir şablondur."
+            },
+            'object': {
+                title: "Nesne (benimArabam)", color: "emerald", icon: "fa-car",
+                code: `<span class="type">Araba</span> benimArabam <span class="atama-vurgu">=</span> <span class="kw">new</span> <span class="type">Araba</span>();`,
+                desc: "new anahtar kelimesiyle 'Araba' şablonundan 'benimArabam' isimli gerçek bir varlık türetilir."
+            },
+            'methods': {
+                title: "Metot (Calistir)", color: "purple", icon: "fa-key",
+                code: `<span class="mod">public void</span> <span class="func">Calistir</span>() {<br>&nbsp;&nbsp;<span class="func">Console</span>.<span class="func">WriteLine</span>(<span class="str">"Vroom!"</span>);<br>}`,
+                desc: "Nesnenin ne yapabileceğini belirleyen davranıştır. Araba çalışabilir."
+            },
+            'fields': {
+                title: "Alan (Renk / Plaka)", color: "amber", icon: "fa-palette",
+                code: `benimArabam.<span class="prop">Renk</span> <span class="atama-vurgu">=</span> <span class="str">"Kırmızı"</span>;<br>benimArabam.<span class="prop">Plaka</span> <span class="atama-vurgu">=</span> <span class="str">"34 TKGM 06"</span>;`,
+                desc: "Nesnenin sahip olduğu verilerdir. Arabanın rengi veya plakası gibi."
+            },
 
-            // 2. A - Kapsülleme
-            'modifiers': { title: "Erişim Belirleyiciler", color: "rose", icon: "fa-lock", code: `<span class="mod">public:</span> Her yerden erişim.<br><span class="mod">private:</span> Sadece sınıf içinden.<br><span class="mod">protected:</span> Miras alanlardan.<br><span class="mod">internal:</span> Aynı projeden.`, desc: "Verilere erişim yetkisini belirler." },
-            'props': { title: "Properties (get/set)", color: "blue", icon: "fa-sliders", code: `<span class="mod">private double</span> <span class="prop">_alan</span>;<br><span class="mod">public double</span> <span class="prop">Alan</span> {<br>&nbsp;&nbsp;<span class="kw">get</span> { <span class="kw">return</span> <span class="prop">_alan</span>; }<br>&nbsp;&nbsp;<span class="kw">set</span> { <span class="kw">if</span>(value > 0) <span class="prop">_alan</span> <span class="atama-vurgu">=</span> value; }<br>}`, desc: "Veriye kontrollü erişim (get: okuma, set: yazma) sağlar." },
-
-            // 2. B - Kalıtım
-            'inheritance': { title: "Kalıtım (Inheritance)", color: "indigo", icon: "fa-dna", code: `<span class="mod">public class</span> <span class="type">Yapı</span> : <span class="type">Parsel</span> { <span class="cmt">// : Operatörü</span><br>&nbsp;&nbsp;<span class="cmt">// Temel Sınıf: Parsel, Türetilmiş Sınıf: Yapı</span><br>}`, desc: "Mevcut sınıfın yeteneklerini yeni sınıfa aktarır." },
-            'sealed': { title: "Sealed (Kalıtım Engelleme)", color: "red", icon: "fa-hand-stop", code: `<span class="mod">public sealed class</span> <span class="type">Parsel</span> { }<br><span class="cmt">// Başka sınıf miras ALAMAZ.</span>`, desc: "Sınıfın miras verilmesini engeller." },
-
-            // 2. C - Çok Biçimlilik
-            'overloading': { title: "Method Overloading (Statik)", color: "amber", icon: "fa-masks-theater", code: `<span class="mod">public void</span> <span class="func">Sorgula</span>(<span class="kw">int</span> id) { }<br><span class="mod">public void</span> <span class="func">Sorgula</span>(<span class="kw">string</span> no) { }<br><span class="cmt">// Aşırı Yükleme (Compile-time)</span>`, desc: "Aynı metodun farklı parametrelerle çalışmasıdır." },
-            'overriding': { title: "Overriding (virtual/override)", color: "emerald", icon: "fa-rotate", code: `<span class="mod">public virtual void</span> <span class="func">Ciz</span>() { } <span class="cmt">// Ezilebilir</span><br><span class="mod">public override void</span> <span class="func">Ciz</span>() { } <span class="cmt">// Ezme işlemi</span>`, desc: "Dinamik (Run-time) polymorphism örneğidir." },
-
-            // 2. D - Soyutlama
-            'abstract': { title: "Abstract Class (Soyut Sınıf)", color: "slate", icon: "fa-cloud", code: `<span class="mod">public abstract class</span> <span class="type">Varlik</span> {<br>&nbsp;&nbsp;<span class="mod">public abstract void</span> <span class="func">Ciz</span>(); <span class="cmt">// Gövdesiz</span><br>&nbsp;&nbsp;<span class="mod">public void</span> <span class="func">Sil</span>() { } <span class="cmt">// Gövdeli</span><br>}`, desc: "Hem soyut hem normal metotlar barındırabilen sınıftır." },
-            'interface': { title: "Interface (Arayüz)", color: "cyan", icon: "fa-pen-nib", code: `<span class="mod">public interface</span> <span class="type">ITapulu</span> {<br>&nbsp;&nbsp;<span class="kw">void</span> <span class="func">SicilYazdir</span>(); <span class="cmt">// Sadece imza (Signature)</span><br>}`, desc: "Sadece yapılacak işlerin imzasını barındırır." },
-
-            // 3. Sınıf Üyeleri
-            'constructor': { title: "Constructor (Yapıcı)", color: "blue", icon: "fa-hammer", code: `<span class="mod">public</span> <span class="type">Parsel</span>(<span class="kw">string</span> no) {<br>&nbsp;&nbsp;<span class="kw">this</span>.No <span class="atama-vurgu">=</span> no;<br>}`, desc: "Nesne oluşturulurken çalışan ilk metottur." },
-            'destructor': { title: "Destructor (Yıkıcı)", color: "rose", icon: "fa-broom", code: `<span class="mod">~Parsel</span>() {<br>&nbsp;&nbsp;<span class="cmt">// Nesne bellekten silinirken çalışır.</span><br>}`, desc: "Nesne yok edilirken son işlemi yapan metottur." },
-            'static': { title: "Static Port", color: "amber", icon: "fa-bolt", code: `<span class="mod">public static int</span> <span class="prop">Count</span> <span class="atama-vurgu">=</span> 0;<br><span class="cmt">// Nesneden bağımsız ortak üye.</span>`, desc: "Sınıfa ait kopyalanmayan kalıcı veridir." },
-            'this': { title: "this / base", color: "indigo", icon: "fa-location-crosshairs", code: `<span class="kw">this</span>.X <span class="atama-vurgu">=</span> x; <span class="cmt">// Mevcut nesne</span><br><span class="kw">base</span>.Metot(); <span class="cmt">// Üst sınıf</span>`, desc: "Mevcut ve üst sınıf referanslarını ifade eder." }
+            // Diğer kavramlar (Varsayılan içerikler)
+            'modifiers': { title: "Access Modifiers", color: "rose", icon: "fa-lock", code: `<span class="mod">public:</span> Her yerden<br><span class="mod">private:</span> Sadece sınıftan`, desc: "Görünürlük ayarları." },
+            'props': { title: "Properties", color: "blue", icon: "fa-sliders", code: `<span class="mod">public string</span> <span class="prop">Model</span> { <span class="kw">get</span>; <span class="kw">set</span>; }`, desc: "Kapsüllenmiş veriler." },
+            'inheritance': { title: "Kalıtım", color: "indigo", icon: "fa-dna", code: `<span class="mod">public class</span> <span class="type">Togg</span> : <span class="type">Araba</span> { }`, desc: "Özellik aktarımı." },
+            'sealed': { title: "Sealed", color: "red", icon: "fa-hand-stop", code: `<span class="mod">public sealed class</span> <span class="type">X</span> { }`, desc: "Kalıtım sonu." },
+            'overloading': { title: "Overloading", color: "amber", icon: "fa-masks-theater", code: `<span class="mod">public void</span> <span class="func">Git</span>(<span class="kw">int</span> km) { }`, desc: "Aynı isim farklı parametre." },
+            'overriding': { title: "Overriding", color: "emerald", icon: "fa-rotate", code: `<span class="mod">public override void</span> <span class="func">X</span>() { }`, desc: "Davranışı ezme." },
+            'abstract': { title: "Abstract", color: "slate", icon: "fa-cloud", code: `<span class="mod">public abstract class</span> <span class="type">Motor</span> { }`, desc: "Soyut şablon." },
+            'interface': { title: "Interface", color: "cyan", icon: "fa-pen-nib", code: `<span class="mod">public interface</span> <span class="type">ISicil</span> { }`, desc: "Sözleşme." },
+            'constructor': { title: "Constructor", color: "blue", icon: "fa-hammer", code: `<span class="mod">public</span> <span class="type">Araba</span>() { }`, desc: "Kurucu metot." },
+            'destructor': { title: "Destructor", color: "rose", icon: "fa-broom", code: `<span class="mod">~Araba</span>() { }`, desc: "Yıkıcı metot." },
+            'static': { title: "Static", color: "amber", icon: "fa-bolt", code: `<span class="mod">public static int</span> <span class="prop">Sayi</span>;`, desc: "Sınıf değişkeni." },
+            'this': { title: "this / base", color: "indigo", icon: "fa-location-crosshairs", code: `<span class="kw">this</span>.X = x;`, desc: "Referans anahtarları." }
         };
 
         let heapItems = [];
@@ -412,10 +427,24 @@
             const theme = THEMES[key];
             if (!theme) return;
 
-            // 1. Sağ Panelleri Güncelle (Kod ve Teori)
+            // --- İLİŞKİSELLİK KONTROLÜ (Requirement Logic) ---
+            if (key === 'object' && !modelState.classDefined) {
+                pushLog("[X]: Önce bir Sınıf (Plan) tanımlamalısınız!", "cmt");
+                return;
+            }
+            if ((key === 'methods' || key === 'fields') && !modelState.objectInstantiated) {
+                pushLog("[X]: Önce bir Nesne oluşturmalısınız!", "cmt");
+                return;
+            }
+
+            // Durum Güncelleme
+            if (key === 'class') modelState.classDefined = true;
+            if (key === 'object') modelState.objectInstantiated = true;
+
+            // 1. Sağ Panelleri Güncelle
             document.getElementById('code-content').innerHTML = `
                 <div class="code-section">
-                    <div class="cmt border-b border-white/5 mb-4 pb-2">// DEMO: ${theme.title}</div>
+                    <div class="cmt border-b border-white/5 mb-4 pb-2">// HIYERARŞİK DEMO: ${theme.title}</div>
                     ${theme.code}
                 </div>
             `;
@@ -424,22 +453,14 @@
                 <section class="border-l-4 border-${theme.color}-500 pl-6">
                     <h3 class="text-white font-black text-2xl mb-4">${theme.title}</h3>
                     <p class="text-slate-400 leading-relaxed">${theme.desc}</p>
-                    <div class="mt-8 p-6 cam-efekti">
-                        <span class="text-[9px] font-bold text-slate-500 block mb-2 uppercase tracking-widest">Bellek Mimarisi (Stack vs Heap)</span>
-                        <p class="text-xs italic text-${theme.color}-500">
-                            ${['class', 'object', 'inheritance', 'interface', 'abstract'].includes(key)
-                    ? "Bu bir Referans Tipidir. Referans adresi STACK'te, verinin kendisi HEAP'te tutulur."
-                    : "Bu işlem STACK üzerindeki bir frame içine değer atar veya mevcut referansı günceller."}
-                        </p>
-                    </div>
                 </section>
             `;
 
-            // 2. Bellek Operasyonu (Stack & Heap)
+            // 2. Bellek Operasyonu
             const id = Math.floor(Math.random() * 9000) + 1000;
             const isRefType = ['class', 'object', 'inheritance', 'interface', 'abstract', 'constructor', 'this'].includes(key);
 
-            // Stack Frame Ekle (Her zaman eklenir)
+            // Stack Frame
             const newStackFrame = {
                 id: id,
                 title: theme.title,
@@ -449,9 +470,9 @@
                 time: new Date().toLocaleTimeString('tr-TR')
             };
             stackItems.push(newStackFrame);
-            if (stackItems.length > 8) stackItems.shift(); // Stack derinliği sınırlı
+            if (stackItems.length > 8) stackItems.shift();
 
-            // Heap Segment Ekle (Sadece referans tipleri için)
+            // Heap Segment
             if (isRefType) {
                 const newHeapObj = {
                     id: id,
@@ -461,17 +482,24 @@
                     key: key
                 };
                 heapItems.push(newHeapObj);
+                if (key === 'object') modelState.lastObjectId = id;
                 if (heapItems.length > 5) {
                     const removed = heapItems.shift();
                     pushLog(`[GC]: Heap Segment @0x${removed.id.toString(16)} collected.`, 'cmt');
                 }
             }
 
-            // 3. UI Senkronizasyonu
-            syncUI();
+            // Metot veya Alan Eklendiğinde Nesneyi Güncelle
+            if (key === 'methods' || key === 'fields') {
+                const targetObj = heapItems.find(o => o.id === modelState.lastObjectId);
+                if (targetObj) {
+                    targetObj.attached = targetObj.attached || [];
+                    targetObj.attached.push(theme.title);
+                }
+            }
 
-            // 4. Log Bas
-            pushLog(`[EXEC]: ${theme.title} işlemi yürütüldü.`, 'kod');
+            syncUI();
+            pushLog(`[EXEC]: ${theme.title} hiyerarşiye eklendi.`, 'kod');
             if (isRefType) pushLog(`[HEAP]: New object allocated at 0x${id.toString(16)}.`, 'msg');
             else pushLog(`[STACK]: Value pushed to stack frame.`, 'msg');
 
@@ -486,7 +514,6 @@
             wrap.innerHTML = '';
             stackWrap.innerHTML = '';
 
-            // Stack UI
             if (stackItems.length === 0) {
                 stackWrap.innerHTML = '<div class="text-[9px] text-slate-600 italic text-center py-10 opacity-30">Stack Boş</div>';
             } else {
@@ -494,10 +521,8 @@
                     const isRef = s.type === 'Ref';
                     stackWrap.innerHTML += `
                         <div class="p-4 bg-slate-900/60 border border-${s.color}-500/20 rounded-xl flex flex-col gap-2 animate-in slide-in-from-bottom duration-300 relative overflow-hidden group">
-                            <div class="absolute inset-0 bg-${s.color}-500/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
                             <span class="text-[8px] text-slate-500 font-black tracking-widest uppercase flex justify-between">
-                                ${s.type} Type
-                                <i class="fa-solid ${isRef ? 'fa-link' : 'fa-hashtag'} opacity-40"></i>
+                                ${s.type} Type <i class="fa-solid ${isRef ? 'fa-link' : 'fa-hashtag'} opacity-40"></i>
                             </span>
                             <div class="flex flex-col gap-1 relative z-10">
                                 <b class="text-[10px] text-white truncate">${s.title}</b>
@@ -508,7 +533,6 @@
                 });
             }
 
-            // Heap UI
             if (heapItems.length === 0) {
                 empty.classList.remove('hidden');
             } else {
@@ -529,11 +553,12 @@
                                 </div>
                                 <span class="px-1.5 py-0.5 bg-white/5 rounded text-[9px] text-slate-400 font-mono">0x${o.id.toString(16)}</span>
                             </div>
+                            ${o.attached ? `
+                                <div class="flex flex-wrap gap-2">
+                                    ${o.attached.map(a => `<span class="px-2 py-1 bg-white/5 border border-white/5 rounded text-[8px] text-slate-400 font-bold uppercase">${a}</span>`).join('')}
+                                </div>
+                            ` : ''}
                             <div class="bg-black/30 p-2.5 rounded-xl border border-white/5">
-                                 <div class="flex justify-between items-center text-[7px] mb-1.5 font-black uppercase text-slate-600">
-                                    <span>Allocated Space</span>
-                                    <span class="text-blue-500/50">Managed</span>
-                                 </div>
                                  <div class="h-1 w-full bg-slate-800/50 rounded-full overflow-hidden">
                                     <div class="h-full bg-${o.color}-500/50" style="width: ${Math.random() * 40 + 30}%"></div>
                                  </div>
