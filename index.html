@@ -394,7 +394,7 @@
             const theme = THEMES[key];
             if (!theme) return;
 
-            // Update Side Panels
+            // 1. Sağ Panelleri Güncelle (Kod ve Teori)
             document.getElementById('code-content').innerHTML = `
                 <div class="code-section">
                     <div class="cmt border-b border-white/5 mb-4 pb-2">// DEMO: ${theme.title}</div>
@@ -413,20 +413,29 @@
                 </section>
             `;
 
-            // Simulation Logic
+            // 2. Heap Nesnesi Oluştur
             const newObj = {
                 id: Math.floor(Math.random() * 9000) + 1000,
                 title: theme.title,
                 color: theme.color,
                 icon: theme.icon,
-                time: new Date().toLocaleTimeString('tr-TR')
+                time: new Date().toLocaleTimeString('tr-TR'),
+                key: key
             };
 
+            // Maksimum 6 nesne gösterimi (Bellek yönetimi simülasyonu)
             heapItems.push(newObj);
-            if (heapItems.length > 6) heapItems.shift(); // Max 6 objects visual
+            if (heapItems.length > 6) {
+                const removed = heapItems.shift();
+                pushLog(`[GC]: Reference @0x${removed.id.toString(16)} collected from heap.`, 'cmt');
+            }
 
+            // 3. UI Senkronizasyonu
             syncUI();
-            pushLog(`[${newObj.time}] Concept: ${key.toUpperCase()} implemented. PTR: @0x${newObj.id.toString(16)}`, 'msg');
+
+            // 4. Log Bas
+            pushLog(`[STMT]: ${theme.title} hiyerarşisi uygulandı.`, 'kod');
+            pushLog(`[MEM]: New segment allocated at 0x${newObj.id.toString(16)}.`, 'msg');
 
             if (tur_aktif) setTimeout(turNext, 400);
         }
@@ -439,53 +448,73 @@
             wrap.innerHTML = '';
             stack.innerHTML = '';
 
-            if (heapItems.length === 0) empty.classList.remove('hidden'); else empty.classList.add('hidden');
-
-            heapItems.forEach(o => {
-                // Heap Card
-                wrap.innerHTML += `
-                    <div class="bellek-hucre cam-efekti p-6 flex flex-col gap-5 border border-${o.color}-500/10">
-                        <div class="flex justify-between items-start">
-                            <div class="flex gap-4 items-center">
-                                <div class="w-12 h-12 bg-${o.color}-500/10 rounded-xl flex items-center justify-center text-${o.color}-500 border border-${o.color}-500/20">
-                                    <i class="fa-solid ${o.icon} text-xl"></i>
+            if (heapItems.length === 0) {
+                empty.classList.remove('hidden');
+            } else {
+                empty.classList.add('hidden');
+                heapItems.forEach(o => {
+                    // Heap Nesne Kartı
+                    wrap.innerHTML += `
+                        <div class="bellek-hucre cam-efekti p-6 flex flex-col gap-5 border border-${o.color}-500/10 animate-in fade-in zoom-in duration-300">
+                            <div class="flex justify-between items-start">
+                                <div class="flex gap-4 items-center">
+                                    <div class="w-12 h-12 bg-${o.color}-500/10 rounded-xl flex items-center justify-center text-${o.color}-500 border border-${o.color}-500/20 shadow-lg shadow-${o.color}-500/5">
+                                        <i class="fa-solid ${o.icon} text-xl"></i>
+                                    </div>
+                                    <div class="flex flex-col">
+                                        <h4 class="text-white font-bold text-sm">${o.title}</h4>
+                                        <span class="text-[9px] text-slate-500 font-black uppercase tracking-tighter">Instance @ Runtime</span>
+                                    </div>
                                 </div>
-                                <div class="flex flex-col">
-                                    <h4 class="text-white font-bold">${o.title}</h4>
-                                    <span class="text-[9px] text-slate-500 font-black uppercase">Heap Segment</span>
-                                </div>
+                                <span class="px-2 py-1 bg-white/5 rounded text-[10px] text-slate-400 font-mono border border-white/5">0x${o.id.toString(16)}</span>
                             </div>
-                            <span class="px-2 py-1 bg-white/5 rounded text-[10px] text-slate-400 font-mono">0x${o.id.toString(16)}</span>
+                            <div class="bg-black/30 p-3 rounded-xl border border-white/5">
+                                 <div class="flex justify-between items-center text-[8px] mb-2 font-black uppercase text-slate-500">
+                                    <span>Memory Usage</span>
+                                    <span class="text-emerald-500">Active</span>
+                                 </div>
+                                 <div class="h-1.5 w-full bg-slate-800 rounded-full overflow-hidden">
+                                    <div class="h-full bg-${o.color}-500 shadow-[0_0_10px_rgba(0,0,0,0.5)]" style="width: ${Math.random() * 60 + 40}%"></div>
+                                 </div>
+                            </div>
                         </div>
-                        <div class="bg-black/20 p-3 rounded-xl border border-white/5">
-                             <div class="flex justify-between items-center text-[9px] mb-2">
-                                <span class="text-slate-500 font-bold uppercase">Dynamic Runtime Data</span>
-                                <span class="text-emerald-500">Live</span>
-                             </div>
-                             <div class="h-1.5 w-full bg-slate-800 rounded-full overflow-hidden">
-                                <div class="h-full bg-${o.color}-500" style="width: ${Math.random() * 60 + 40}%"></div>
-                             </div>
-                        </div>
-                    </div>
-                `;
+                    `;
 
-                // Stack Ref
-                stack.innerHTML += `
-                    <div class="p-4 bg-slate-900/60 border border-${o.color}-500/10 rounded-xl flex flex-col gap-2">
-                        <span class="text-[8px] text-slate-500 font-black">VAR REFERENCE</span>
-                        <div class="flex justify-between items-center">
-                            <b class="text-[11px] text-${o.color}-500">-> 0x${o.id.toString(16)}</b>
-                            <i class="fa-solid fa-link text-[10px] opacity-20"></i>
+                    // Stack Referansı
+                    stack.innerHTML += `
+                        <div class="p-4 bg-slate-900/60 border border-${o.color}-500/10 rounded-xl flex flex-col gap-2 hover:border-${o.color}-500/30 transition-all duration-300">
+                            <span class="text-[8px] text-slate-500 font-black tracking-widest uppercase">Pointer (Ref)</span>
+                            <div class="flex justify-between items-center">
+                                <b class="text-[11px] text-${o.color}-400 font-mono">-> 0x${o.id.toString(16)}</b>
+                                <i class="fa-solid fa-link text-[10px] text-${o.color}-500/20"></i>
+                            </div>
                         </div>
-                    </div>
-                `;
-            });
+                    `;
+                });
+            }
         }
 
         function pushLog(msg, tip) {
             const box = document.getElementById('terminal-content');
-            const clr = tip === 'kod' ? 'text-blue-400' : 'text-slate-300';
-            box.innerHTML += `<div class="py-1.5 ${clr} border-b border-white/5"><span class="opacity-20 mr-3">${logId++}</span>${msg}</div>`;
+            if (!box) return;
+
+            const time = new Date().toLocaleTimeString('tr-TR', { hour12: false });
+            let clr = "text-slate-400";
+            let prefix = "INF";
+
+            if (tip === 'kod') { clr = "text-blue-400 font-bold"; prefix = "CMD"; }
+            else if (tip === 'msg') { clr = "text-emerald-400"; prefix = "MEM"; }
+            else if (tip === 'cmt') { clr = "text-slate-500 italic"; prefix = "SYS"; }
+
+            const logLine = document.createElement('div');
+            logLine.className = `py-1.5 ${clr} border-b border-white/5 flex gap-4 animate-in slide-in-from-left duration-200`;
+            logLine.innerHTML = `
+                <span class="opacity-30 font-mono shrink-0">${time}</span>
+                <span class="px-1.5 bg-white/5 rounded text-[9px] font-black h-4 flex items-center justify-center min-w-[35px] text-slate-500">${prefix}</span>
+                <span class="flex-1">${msg}</span>
+            `;
+
+            box.appendChild(logLine);
             box.scrollTop = box.scrollHeight;
         }
 
