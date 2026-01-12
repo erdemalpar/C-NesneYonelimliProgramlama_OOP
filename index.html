@@ -287,17 +287,34 @@
 
         <!-- Middle: Memory & Logs -->
         <section class="flex-1 flex flex-col gap-4 min-w-0">
-            <!-- Heap Area -->
-            <div id="heap-area" class="flex-1 cam-efekti p-8 overflow-y-auto relative bg-[#0a0f1d]/50">
-                <div class="flex items-center justify-between mb-8 opacity-50">
-                    <span class="text-[10px] font-black tracking-widest uppercase">Heap Bellek (Manageed Heap)</span>
-                    <i class="fa-solid fa-database text-xs"></i>
+            <!-- Memory Visualization Area -->
+            <div class="flex-1 flex flex-col lg:flex-row gap-4 min-h-0">
+
+                <!-- Stack Area (LIFO) -->
+                <div id="stack-area"
+                    class="w-full lg:w-48 cam-efekti p-6 flex flex-col shrink-0 bg-[#0a0f1d]/30 border-r border-white/5">
+                    <div class="flex items-center justify-between mb-6 opacity-50">
+                        <span class="text-[9px] font-black tracking-widest uppercase">Stack (LIFO)</span>
+                        <i class="fa-solid fa-layer-group text-[10px]"></i>
+                    </div>
+                    <div id="stack-content" class="flex flex-col-reverse gap-2 overflow-y-auto pr-1">
+                        <!-- Stack frames go here -->
+                        <div class="text-[9px] text-slate-600 italic text-center py-10 opacity-30">Stack Boş</div>
+                    </div>
                 </div>
-                <div id="objects-wrapper" class="grid grid-cols-1 xl:grid-cols-2 gap-6"></div>
-                <div id="empty-heap"
-                    class="absolute inset-0 flex flex-col items-center justify-center opacity-10 pointer-events-none">
-                    <i class="fa-solid fa-database text-9xl"></i>
-                    <p class="mt-4 font-black uppercase tracking-widest">Etkileşim Bekleniyor</p>
+
+                <!-- Heap Area -->
+                <div id="heap-area" class="flex-1 cam-efekti p-8 overflow-y-auto relative bg-[#0a0f1d]/50">
+                    <div class="flex items-center justify-between mb-8 opacity-50">
+                        <span class="text-[10px] font-black tracking-widest uppercase">Heap Bellek (Management)</span>
+                        <i class="fa-solid fa-database text-xs"></i>
+                    </div>
+                    <div id="objects-wrapper" class="grid grid-cols-1 xl:grid-cols-2 gap-6"></div>
+                    <div id="empty-heap"
+                        class="absolute inset-0 flex flex-col items-center justify-center opacity-10 pointer-events-none">
+                        <i class="fa-solid fa-database text-9xl"></i>
+                        <p class="mt-4 font-black uppercase tracking-widest">Etkileşim Bekleniyor</p>
+                    </div>
                 </div>
             </div>
 
@@ -388,6 +405,7 @@
         };
 
         let heapItems = [];
+        let stackItems = [];
         let logId = 1;
 
         function simuleEt(key) {
@@ -407,35 +425,55 @@
                     <h3 class="text-white font-black text-2xl mb-4">${theme.title}</h3>
                     <p class="text-slate-400 leading-relaxed">${theme.desc}</p>
                     <div class="mt-8 p-6 cam-efekti">
-                        <span class="text-[9px] font-bold text-slate-500 block mb-2 uppercase tracking-widest">Atama ve Bellek Durumu</span>
-                        <p class="text-xs italic text-${theme.color}-500">Bu işlem, managed heap üzerinde yeni bir tahsis işlemine veya mevcut yapıların güncellenmesine neden olur.</p>
+                        <span class="text-[9px] font-bold text-slate-500 block mb-2 uppercase tracking-widest">Bellek Mimarisi (Stack vs Heap)</span>
+                        <p class="text-xs italic text-${theme.color}-500">
+                            ${['class', 'object', 'inheritance', 'interface', 'abstract'].includes(key)
+                    ? "Bu bir Referans Tipidir. Referans adresi STACK'te, verinin kendisi HEAP'te tutulur."
+                    : "Bu işlem STACK üzerindeki bir frame içine değer atar veya mevcut referansı günceller."}
+                        </p>
                     </div>
                 </section>
             `;
 
-            // 2. Heap Nesnesi Oluştur
-            const newObj = {
-                id: Math.floor(Math.random() * 9000) + 1000,
+            // 2. Bellek Operasyonu (Stack & Heap)
+            const id = Math.floor(Math.random() * 9000) + 1000;
+            const isRefType = ['class', 'object', 'inheritance', 'interface', 'abstract', 'constructor', 'this'].includes(key);
+
+            // Stack Frame Ekle (Her zaman eklenir)
+            const newStackFrame = {
+                id: id,
                 title: theme.title,
                 color: theme.color,
-                icon: theme.icon,
-                time: new Date().toLocaleTimeString('tr-TR'),
-                key: key
+                type: isRefType ? 'Ref' : 'Value',
+                pointer: isRefType ? `0x${id.toString(16)}` : Math.floor(Math.random() * 100),
+                time: new Date().toLocaleTimeString('tr-TR')
             };
+            stackItems.push(newStackFrame);
+            if (stackItems.length > 8) stackItems.shift(); // Stack derinliği sınırlı
 
-            // Maksimum 6 nesne gösterimi (Bellek yönetimi simülasyonu)
-            heapItems.push(newObj);
-            if (heapItems.length > 6) {
-                const removed = heapItems.shift();
-                pushLog(`[GC]: Reference @0x${removed.id.toString(16)} collected from heap.`, 'cmt');
+            // Heap Segment Ekle (Sadece referans tipleri için)
+            if (isRefType) {
+                const newHeapObj = {
+                    id: id,
+                    title: theme.title,
+                    color: theme.color,
+                    icon: theme.icon,
+                    key: key
+                };
+                heapItems.push(newHeapObj);
+                if (heapItems.length > 5) {
+                    const removed = heapItems.shift();
+                    pushLog(`[GC]: Heap Segment @0x${removed.id.toString(16)} collected.`, 'cmt');
+                }
             }
 
             // 3. UI Senkronizasyonu
             syncUI();
 
             // 4. Log Bas
-            pushLog(`[STMT]: ${theme.title} hiyerarşisi uygulandı.`, 'kod');
-            pushLog(`[MEM]: New segment allocated at 0x${newObj.id.toString(16)}.`, 'msg');
+            pushLog(`[EXEC]: ${theme.title} işlemi yürütüldü.`, 'kod');
+            if (isRefType) pushLog(`[HEAP]: New object allocated at 0x${id.toString(16)}.`, 'msg');
+            else pushLog(`[STACK]: Value pushed to stack frame.`, 'msg');
 
             if (tur_aktif) setTimeout(turNext, 400);
         }
@@ -443,50 +481,62 @@
         function syncUI() {
             const wrap = document.getElementById('objects-wrapper');
             const empty = document.getElementById('empty-heap');
-            const stack = document.getElementById('stack-content');
+            const stackWrap = document.getElementById('stack-content');
 
             wrap.innerHTML = '';
-            stack.innerHTML = '';
+            stackWrap.innerHTML = '';
 
+            // Stack UI
+            if (stackItems.length === 0) {
+                stackWrap.innerHTML = '<div class="text-[9px] text-slate-600 italic text-center py-10 opacity-30">Stack Boş</div>';
+            } else {
+                stackItems.forEach(s => {
+                    const isRef = s.type === 'Ref';
+                    stackWrap.innerHTML += `
+                        <div class="p-4 bg-slate-900/60 border border-${s.color}-500/20 rounded-xl flex flex-col gap-2 animate-in slide-in-from-bottom duration-300 relative overflow-hidden group">
+                            <div class="absolute inset-0 bg-${s.color}-500/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                            <span class="text-[8px] text-slate-500 font-black tracking-widest uppercase flex justify-between">
+                                ${s.type} Type
+                                <i class="fa-solid ${isRef ? 'fa-link' : 'fa-hashtag'} opacity-40"></i>
+                            </span>
+                            <div class="flex flex-col gap-1 relative z-10">
+                                <b class="text-[10px] text-white truncate">${s.title}</b>
+                                <span class="font-mono text-[10px] text-${s.color}-400">${isRef ? 'PTR: ' + s.pointer : 'VAL: ' + s.pointer}</span>
+                            </div>
+                        </div>
+                    `;
+                });
+            }
+
+            // Heap UI
             if (heapItems.length === 0) {
                 empty.classList.remove('hidden');
             } else {
                 empty.classList.add('hidden');
                 heapItems.forEach(o => {
-                    // Heap Nesne Kartı
                     wrap.innerHTML += `
-                        <div class="bellek-hucre cam-efekti p-6 flex flex-col gap-5 border border-${o.color}-500/10 animate-in fade-in zoom-in duration-300">
+                        <div class="bellek-hucre cam-efekti p-6 flex flex-col gap-5 border border-${o.color}-500/10 animate-in fade-in zoom-in duration-300 relative group">
+                            <div class="absolute -left-[4px] top-1/2 -translate-y-1/2 w-1 h-12 bg-${o.color}-500 rounded-full shadow-[0_0_10px_${o.color}77]"></div>
                             <div class="flex justify-between items-start">
                                 <div class="flex gap-4 items-center">
-                                    <div class="w-12 h-12 bg-${o.color}-500/10 rounded-xl flex items-center justify-center text-${o.color}-500 border border-${o.color}-500/20 shadow-lg shadow-${o.color}-500/5">
-                                        <i class="fa-solid ${o.icon} text-xl"></i>
+                                    <div class="w-10 h-10 bg-${o.color}-500/10 rounded-xl flex items-center justify-center text-${o.color}-500 border border-${o.color}-500/20">
+                                        <i class="fa-solid ${o.icon} text-lg"></i>
                                     </div>
                                     <div class="flex flex-col">
-                                        <h4 class="text-white font-bold text-sm">${o.title}</h4>
-                                        <span class="text-[9px] text-slate-500 font-black uppercase tracking-tighter">Instance @ Runtime</span>
+                                        <h4 class="text-white font-bold text-xs">${o.title}</h4>
+                                        <span class="text-[8px] text-slate-500 font-black uppercase">Heap Segment</span>
                                     </div>
                                 </div>
-                                <span class="px-2 py-1 bg-white/5 rounded text-[10px] text-slate-400 font-mono border border-white/5">0x${o.id.toString(16)}</span>
+                                <span class="px-1.5 py-0.5 bg-white/5 rounded text-[9px] text-slate-400 font-mono">0x${o.id.toString(16)}</span>
                             </div>
-                            <div class="bg-black/30 p-3 rounded-xl border border-white/5">
-                                 <div class="flex justify-between items-center text-[8px] mb-2 font-black uppercase text-slate-500">
-                                    <span>Memory Usage</span>
-                                    <span class="text-emerald-500">Active</span>
+                            <div class="bg-black/30 p-2.5 rounded-xl border border-white/5">
+                                 <div class="flex justify-between items-center text-[7px] mb-1.5 font-black uppercase text-slate-600">
+                                    <span>Allocated Space</span>
+                                    <span class="text-blue-500/50">Managed</span>
                                  </div>
-                                 <div class="h-1.5 w-full bg-slate-800 rounded-full overflow-hidden">
-                                    <div class="h-full bg-${o.color}-500 shadow-[0_0_10px_rgba(0,0,0,0.5)]" style="width: ${Math.random() * 60 + 40}%"></div>
+                                 <div class="h-1 w-full bg-slate-800/50 rounded-full overflow-hidden">
+                                    <div class="h-full bg-${o.color}-500/50" style="width: ${Math.random() * 40 + 30}%"></div>
                                  </div>
-                            </div>
-                        </div>
-                    `;
-
-                    // Stack Referansı
-                    stack.innerHTML += `
-                        <div class="p-4 bg-slate-900/60 border border-${o.color}-500/10 rounded-xl flex flex-col gap-2 hover:border-${o.color}-500/30 transition-all duration-300">
-                            <span class="text-[8px] text-slate-500 font-black tracking-widest uppercase">Pointer (Ref)</span>
-                            <div class="flex justify-between items-center">
-                                <b class="text-[11px] text-${o.color}-400 font-mono">-> 0x${o.id.toString(16)}</b>
-                                <i class="fa-solid fa-link text-[10px] text-${o.color}-500/20"></i>
                             </div>
                         </div>
                     `;
@@ -509,8 +559,8 @@
             const logLine = document.createElement('div');
             logLine.className = `py-1.5 ${clr} border-b border-white/5 flex gap-4 animate-in slide-in-from-left duration-200`;
             logLine.innerHTML = `
-                <span class="opacity-30 font-mono shrink-0">${time}</span>
-                <span class="px-1.5 bg-white/5 rounded text-[9px] font-black h-4 flex items-center justify-center min-w-[35px] text-slate-500">${prefix}</span>
+                <span class="opacity-30 font-mono shrink-0 text-[9px]">${time}</span>
+                <span class="px-1.5 bg-white/5 rounded text-[8px] font-black h-3.5 flex items-center justify-center min-w-[32px] text-slate-500">${prefix}</span>
                 <span class="flex-1">${msg}</span>
             `;
 
@@ -519,9 +569,16 @@
         }
 
         function tabGoster(id) {
-            ['kod', 'teori'].forEach(t => { document.getElementById(`cont-${t}`).classList.add('hidden'); document.getElementById(`tab-${t}`).classList.remove('active'); });
-            document.getElementById(`cont-${id}`).classList.remove('hidden');
-            document.getElementById(`tab-${id}`).classList.add('active');
+            ['kod', 'teori'].forEach(t => {
+                const cont = document.getElementById(`cont-${t}`);
+                const tab = document.getElementById(`tab-${t}`);
+                if (cont) cont.classList.add('hidden');
+                if (tab) tab.classList.remove('active');
+            });
+            const targetCont = document.getElementById(`cont-${id}`);
+            const targetTab = document.getElementById(`tab-${id}`);
+            if (targetCont) targetCont.classList.remove('hidden');
+            if (targetTab) targetTab.classList.add('active');
         }
 
         // --- GUIDED TOUR ---
