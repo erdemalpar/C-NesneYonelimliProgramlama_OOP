@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kadastro OOP Akademi: Master Seviye Görsel Eğitim</title>
+    <title>TKGM Master OOP Lab: Dijital Kadastro Simülasyonu</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
@@ -13,17 +13,17 @@
         :root {
             --bg: #0b0e14;
             --panel: rgba(17, 24, 39, 0.7);
-            --blue: #3b82f6;
-            --emerald: #10b981;
-            --purple: #8b5cf6;
-            --amber: #f59e0b;
-            --rose: #f43f5e;
-            --accent: #6366f1;
+            --blue: #2563eb;
+            --emerald: #059669;
+            --purple: #7c3aed;
+            --amber: #d97706;
+            --rose: #e11d48;
+            --accent: #3b82f6;
         }
 
         body {
             font-family: 'Outfit', sans-serif;
-            background: radial-gradient(circle at 50% -20%, #1e293b 0%, var(--bg) 100%);
+            background: radial-gradient(circle at 50% -20%, #1e1b4b 0%, var(--bg) 100%);
             color: #f1f5f9;
             overflow: hidden;
         }
@@ -36,13 +36,13 @@
             background: var(--panel);
             backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 24px;
+            border-radius: 20px;
         }
 
         .vurgu {
             position: relative;
             z-index: 9999 !important;
-            box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.9), 0 0 50px var(--blue) !important;
+            box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.9), 0 0 60px var(--blue) !important;
             border: 3px solid var(--blue) !important;
             pointer-events: auto !important;
             transform: scale(1.02);
@@ -53,33 +53,35 @@
             transition: all 0.4s ease;
             cursor: pointer;
             position: relative;
+            border-left: 4px solid transparent;
         }
 
         .bellek-hucre:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.6);
+            transform: translateX(10px);
+            background: rgba(255, 255, 255, 0.05);
+            border-left-color: var(--blue);
         }
 
         .ders-karti {
             position: fixed;
             z-index: 10000;
-            width: 440px;
+            width: 460px;
             display: none;
-            box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.7);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.15);
         }
 
         #rehber-kaplama {
             position: fixed;
             inset: 0;
-            background: rgba(0, 0, 0, 0.5);
+            background: rgba(0, 0, 0, 0.6);
             z-index: 9990;
             display: none;
             pointer-events: none;
         }
 
         ::-webkit-scrollbar {
-            width: 4px;
+            width: 3px;
         }
 
         ::-webkit-scrollbar-thumb {
@@ -116,141 +118,143 @@
         .tab-btn.active {
             background: var(--blue);
             color: white;
-            box-shadow: 0 10px 15px -3px rgba(59, 130, 246, 0.5);
         }
 
         .sim-btn {
             transition: all 0.2s;
+            position: relative;
+            overflow: hidden;
         }
 
-        .sim-btn:active {
-            transform: scale(0.95);
+        .sim-btn::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: white;
+            opacity: 0;
+            transition: 0.2s;
         }
 
-        @keyframes pulse-border {
-            0% {
-                border-color: rgba(59, 130, 246, 0.3);
-            }
-
-            50% {
-                border-color: rgba(59, 130, 246, 1);
-            }
-
-            100% {
-                border-color: rgba(59, 130, 246, 0.3);
-            }
+        .sim-btn:active::after {
+            opacity: 0.2;
         }
 
-        .animate-border {
-            animation: pulse-border 2s infinite;
+        .badge-kadastro {
+            font-size: 8px;
+            font-weight: 800;
+            padding: 2px 6px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
     </style>
 </head>
 
 <body class="h-screen flex flex-col p-4 gap-4">
 
-    <!-- Header Section -->
-    <header class="flex justify-between items-center px-8 py-4 cam-efekti shrink-0 border-b border-white/5">
+    <!-- Header -->
+    <header class="flex justify-between items-center px-8 py-4 cam-efekti shrink-0 border-b border-white/5 shadow-2xl">
         <div class="flex items-center gap-6">
-            <div class="bg-gradient-to-tr from-indigo-600 to-blue-700 p-4 rounded-2xl shadow-xl shadow-blue-500/20">
-                <i class="fa-solid fa-map-location-dot text-white text-3xl"></i>
+            <div
+                class="bg-gradient-to-tr from-blue-700 to-indigo-900 p-4 rounded-xl shadow-inner border border-white/10">
+                <i class="fa-solid fa-landmark-dome text-white text-3xl"></i>
             </div>
             <div>
-                <h1 class="text-3xl font-black tracking-tight leading-none mb-1">KADASTRO <span
-                        class="text-blue-500 italic">OOP LAB</span></h1>
+                <h1 class="text-3xl font-black tracking-tighter leading-none mb-1">DİJİTAL <span
+                        class="text-blue-500">KADASTRO</span> <span
+                        class="text-[10px] font-bold text-slate-500 bg-white/5 px-2 py-1 rounded">V1.5</span></h1>
                 <div class="flex items-center gap-2">
                     <span
-                        class="px-2 py-0.5 bg-blue-500/20 text-blue-400 text-[10px] font-black rounded uppercase tracking-widest">Digital
-                        Cadastre Edition</span>
+                        class="text-slate-400 text-[10px] font-black uppercase tracking-widest flex items-center gap-2">
+                        <i class="fa-solid fa-database text-blue-500"></i> MEGSİS Portalı Aktif
+                    </span>
                     <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                    <span class="text-slate-500 text-[10px] font-bold uppercase tracking-tight">Tapu Sicil Protokolü
-                        Aktif</span>
                 </div>
             </div>
         </div>
 
         <div class="flex items-center gap-6">
             <div id="static-display"
-                class="hidden px-5 py-3 bg-slate-900/50 rounded-2xl border border-white/5 flex items-center gap-4 group">
-                <div class="text-right">
-                    <p class="text-[9px] text-slate-400 font-black uppercase tracking-widest">Tasinmaz.ToplamSayi</p>
-                    <p class="text-[7px] text-blue-400 font-bold uppercase">Küresel Sayaç (Static Member)</p>
+                class="hidden px-5 py-3 bg-slate-900/80 rounded-xl border border-white/5 flex items-center gap-6">
+                <div>
+                    <p class="text-[8px] text-slate-500 font-black uppercase mb-1">Toplam Sicil Kaydı</p>
+                    <div class="text-2xl font-black text-white flex items-center gap-2" id="static-val">0</div>
                 </div>
-                <div class="text-3xl font-black text-white px-4 border-l border-white/10" id="static-val">0</div>
+                <div class="h-10 w-px bg-white/10"></div>
+                <i class="fa-solid fa-shield-halved text-blue-500 text-xl"></i>
             </div>
 
             <button onclick="akademiTurunuBaslat()"
-                class="px-8 py-3.5 bg-blue-600 hover:bg-blue-500 text-white rounded-2xl font-black shadow-xl shadow-blue-600/20 transition-all flex items-center gap-3 group">
-                <i class="fa-solid fa-graduation-cap group-hover:rotate-12 transition-transform"></i>
+                class="px-8 py-4 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-bold shadow-xl shadow-blue-900/40 transition-all flex items-center gap-3 active:scale-95">
+                <i class="fa-solid fa-rocket"></i>
                 <span>EĞİTİMİ BAŞLAT</span>
             </button>
         </div>
     </header>
 
-    <!-- Main Workspace -->
     <main class="flex-1 flex flex-col lg:flex-row gap-4 overflow-hidden">
 
-        <!-- Left Section: Simulation & Memory -->
+        <!-- Left Section -->
         <section class="flex-1 flex flex-col gap-4 min-w-0">
             <div class="flex gap-4 h-full">
-                <!-- Stack Visualizer -->
-                <div id="stack-area" class="w-64 cam-efekti p-6 flex flex-col shrink-0 border-blue-500/10">
+                <!-- Stack -->
+                <div id="stack-area" class="w-72 cam-efekti p-6 flex flex-col shrink-0 border-blue-500/10">
                     <div class="flex items-center justify-between mb-6 border-b border-white/5 pb-4">
-                        <span class="text-[11px] font-black text-slate-400 uppercase tracking-widest">Stack
-                            Memory</span>
-                        <i class="fa-solid fa-server text-blue-500 text-xs"></i>
+                        <span
+                            class="text-[10px] font-black text-slate-400 uppercase tracking-widest tracking-widest">Stack
+                            (Pointer Alanı)</span>
+                        <i class="fa-solid fa-code-branch text-blue-500 text-xs text-xs"></i>
                     </div>
-                    <div id="stack-content" class="flex flex-col-reverse gap-3 overflow-y-auto pr-2 custom-scroll">
-                        <!-- Value Types & References -->
-                    </div>
+                    <div id="stack-content"
+                        class="flex flex-col-reverse gap-3 overflow-y-auto pr-2 custom-scroll scroll-smooth"></div>
                 </div>
 
-                <!-- Simulation Hub -->
+                <!-- Simulation -->
                 <div class="flex-1 flex flex-col gap-4 min-w-0">
-                    <!-- Object Factory -->
-                    <div id="factory-panel" class="p-8 cam-efekti bg-gradient-to-br from-slate-900/80 to-transparent">
+                    <!-- Factory -->
+                    <div id="factory-panel" class="p-8 cam-efekti bg-slate-900/40 border border-white/5">
                         <div class="flex items-center justify-between mb-8">
-                            <h2 class="text-xl font-bold flex items-center gap-3">
-                                <i class="fa-solid fa-layer-group text-blue-500"></i>
-                                <span>Taşınmaz Tescili (Object Instantiation)</span>
+                            <h2 class="text-lg font-bold flex items-center gap-3">
+                                <i class="fa-solid fa-file-signature text-blue-500"></i>
+                                <span>Taşınmaz Tescil Sistemi</span>
                             </h2>
-                            <div class="text-[10px] text-slate-500 font-bold uppercase tracking-widest">Parsel Bilgisi
-                                Girişi</div>
+                            <span
+                                class="text-[9px] text-slate-500 font-bold uppercase py-1 px-3 bg-white/5 rounded-full tracking-widest">Sistem
+                                Tarafından Rastgele Veri Üretilir</span>
                         </div>
-                        <div class="flex flex-wrap gap-5">
-                            <input type="text" id="objectNameGirdi" placeholder="Ada/Parsel No giriniz..."
-                                class="bg-black/60 border border-slate-700/50 rounded-2xl px-6 py-4 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all w-64 kod-tipi text-white placeholder:text-slate-600">
+                        <div class="flex flex-wrap gap-4">
                             <button id="btn-taret-parsel" onclick="tasinmazTuret('parsel')"
-                                class="sim-btn px-6 py-4 bg-gradient-to-br from-blue-600 to-blue-800 text-white rounded-2xl font-black text-xs shadow-lg shadow-blue-900/20 uppercase tracking-wider">🗺️
-                                Parsel Ekle (sealed)</button>
+                                class="sim-btn group px-8 py-4 bg-slate-800 hover:bg-slate-700 text-white rounded-xl font-bold text-xs border border-white/5 transition-all flex items-center gap-3">
+                                <i class="fa-solid fa-map group-hover:rotate-12 transition-transform"></i>
+                                <span>PARSEL OLUŞTUR</span>
+                            </button>
                             <button id="btn-taret-bina" onclick="tasinmazTuret('bina')"
-                                class="sim-btn px-6 py-4 bg-gradient-to-br from-emerald-600 to-emerald-800 text-white rounded-2xl font-black text-xs shadow-lg shadow-emerald-900/20 uppercase tracking-wider">🏠
-                                Bina Ekle (class)</button>
+                                class="sim-btn group px-8 py-4 bg-slate-800 hover:bg-slate-700 text-white rounded-xl font-bold text-xs border border-white/5 transition-all flex items-center gap-3">
+                                <i class="fa-solid fa-building group-hover:scale-110 transition-transform"></i>
+                                <span>YAPI (BİNA) TESCİL ET</span>
+                            </button>
+                            <button id="btn-taret-bolum" onclick="tasinmazTuret('bolum')"
+                                class="sim-btn group px-8 py-4 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-bold text-xs shadow-lg shadow-blue-900/20 transition-all flex items-center gap-3">
+                                <i class="fa-solid fa-door-open group-hover:-translate-y-1 transition-transform"></i>
+                                <span>BAĞIMSIZ BÖLÜM EKLE</span>
+                            </button>
                         </div>
                     </div>
 
-                    <!-- Heap Visualizer -->
-                    <div id="heap-area"
-                        class="flex-1 cam-efekti p-8 overflow-y-auto relative shadow-inner flex flex-col">
+                    <!-- Heap -->
+                    <div id="heap-area" class="flex-1 cam-efekti p-8 overflow-y-auto relative flex flex-col">
                         <div
-                            class="flex items-center justify-between mb-10 sticky top-0 bg-slate-900/80 backdrop-blur-md p-4 rounded-2xl border border-white/5 z-10">
+                            class="flex items-center justify-between mb-8 sticky top-0 bg-slate-900/60 backdrop-blur-xl p-4 rounded-xl border border-white/10 z-10">
                             <div class="flex items-center gap-3">
-                                <span class="w-3 h-3 rounded-full bg-blue-500"></span>
-                                <span class="text-slate-200 text-xs font-black uppercase tracking-[0.2em]">Heap Memory
-                                    (Tescil Alanı)</span>
+                                <i class="fa-solid fa-layer-group text-blue-500"></i>
+                                <span class="text-slate-200 text-xs font-black uppercase">Heap (Sicil Kayıtları)</span>
                             </div>
-                            <span class="text-[9px] text-slate-500 font-bold italic tracking-tighter">Gerçek nesne
-                                verileri burada saklanır</span>
                         </div>
-                        <div id="objects-wrapper" class="grid grid-cols-1 xl:grid-cols-2 gap-8">
-                            <!-- Canlı Nesneler -->
-                        </div>
-
+                        <div id="objects-wrapper" class="grid grid-cols-1 xl:grid-cols-2 gap-6"></div>
                         <div id="empty-heap"
-                            class="flex-1 flex flex-col items-center justify-center opacity-20 pointer-events-none">
-                            <i class="fa-solid fa-map text-8xl mb-6"></i>
-                            <p class="text-sm font-black uppercase tracking-widest">Tescilli Taşınmaz Bulunmamaktadır
-                            </p>
+                            class="flex-1 flex flex-col items-center justify-center opacity-10 pointer-events-none pb-20">
+                            <i class="fa-solid fa-map-marked-alt text-9xl mb-6"></i>
+                            <p class="text-sm font-black uppercase tracking-widest">Veritabanı Sorgusu Bekleniyor</p>
                         </div>
                     </div>
                 </div>
@@ -258,76 +262,60 @@
         </section>
 
         <!-- Right Section: Knowledge Base -->
-        <section id="kb-section" class="w-full lg:w-[500px] xl:w-[700px] flex flex-col gap-4 shrink-0">
-            <div class="flex-1 cam-efekti flex flex-col overflow-hidden shadow-2xl">
-                <!-- Navigation Tabs -->
-                <div class="flex bg-black/40 p-2 gap-2 border-b border-white/5">
+        <section id="kb-section" class="w-full lg:w-[500px] xl:w-[650px] flex flex-col gap-4 shrink-0">
+            <div class="flex-1 cam-efekti flex flex-col overflow-hidden shadow-2xl border border-white/5">
+                <div class="flex bg-black/40 p-1.5 gap-1.5 border-b border-white/5">
                     <button onclick="tabGoster('kod')" id="tab-kod"
-                        class="tab-btn active flex-1 py-4 text-[11px] font-black rounded-xl transition-all uppercase tracking-widest">Kod
-                        Yapısı (Source)</button>
+                        class="tab-btn active flex-1 py-3 text-[10px] font-black rounded-lg transition-all uppercase tracking-widest">Source
+                        Code</button>
                     <button onclick="tabGoster('teori')" id="tab-teori"
-                        class="tab-btn flex-1 py-4 text-[11px] font-black rounded-xl transition-all uppercase tracking-widest text-slate-500 hover:bg-white/5">Müfredat
-                        (Kadastro Fokus)</button>
+                        class="tab-btn flex-1 py-3 text-[10px] font-black rounded-lg transition-all uppercase tracking-widest text-slate-500 hover:bg-white/5 transition-all">Curriculum</button>
                     <button onclick="tabGoster('log')" id="tab-log"
-                        class="tab-btn flex-1 py-4 text-[11px] font-black rounded-xl transition-all uppercase tracking-widest text-slate-500 hover:bg-white/5">Sicil
-                        Çıktısı (Logs)</button>
+                        class="tab-btn flex-1 py-3 text-[10px] font-black rounded-lg transition-all uppercase tracking-widest text-slate-500 hover:bg-white/5 transition-all">Official
+                        Log</button>
                 </div>
 
                 <!-- Code Container -->
-                <div id="cont-kod" class="flex-1 overflow-auto p-8 kod-tipi text-[13px] leading-relaxed bg-[#0d1117]">
+                <div id="cont-kod" class="flex-1 overflow-auto p-8 kod-tipi text-[12px] leading-relaxed bg-[#0d1117]">
                     <div id="code-content" class="space-y-8">
                         <div id="code-group-1">
-                            <div class="cmt mb-2">// 1. Kadastro Temel Yapı Taşları</div>
+                            <div class="cmt mb-2">// Kadastro Hiyerarşisi</div>
                             <div id="code-interface"><span class="kw">public interface</span> <span
-                                    class="type">IKaydedilebilir</span> { <span class="kw">void</span> <span
-                                    class="func">TescilEt</span>(); }</div>
+                                    class="type">ITapulu</span> { <span class="kw">void</span> <span
+                                    class="func">SicilYazdir</span>(); }</div>
                             <div class="mt-2"><span class="kw">public abstract class</span> <span
-                                    class="type">Tasinmaz</span> : <span class="type">IKaydedilebilir</span> {</div>
-                            <div id="code-field" class="pl-6"><span class="kw">private double</span> <span
-                                    class="prop">_yuzolcumu</span>; <span class="cmt">// Field (Korumalı Veri)</span>
-                            </div>
-                            <div id="code-prop" class="pl-6"><span class="kw">public string</span> <span
-                                    class="prop">KimlikNo</span> { <span class="kw">get</span>; <span
-                                    class="kw">set</span>; } <span class="cmt">// Property (Ada/Parsel No)</span></div>
-                            <div id="code-static" class="pl-6"><span class="kw">public static int</span> <span
-                                    class="prop">ToplamSayi</span> = <span class="str">0</span>; <span class="cmt">//
-                                    Static (Tüm Sicil İçin Tek)</span></div>
+                                    class="type">Tasinmaz</span> : <span class="type">ITapulu</span> {</div>
+                            <div class="pl-6"><span class="kw">public string</span> <span class="prop">Il</span>, <span
+                                    class="prop">Ilce</span>, <span class="prop">Mahalle</span>;</div>
+                            <div id="code-field" class="pl-6"><span class="kw">private int</span> <span
+                                    class="prop">_ada</span>, <span class="prop">_parsel</span>; <span class="cmt">//
+                                    Gizli veriler</span></div>
                             <div id="code-constructor" class="pl-6 mt-3">
                                 <span class="kw">public</span> <span class="type">Tasinmaz</span>(<span
-                                    class="kw">string</span> <span class="prop">no</span>) { <span class="cmt">//
-                                    Constructor (Yeni Kayıt)</span><br>
-                                <span class="pl-6 kw">this</span>.<span class="prop">KimlikNo</span> = <span
-                                    class="prop">no</span>; <br>
+                                    class="kw">string</span> <span class="prop">il</span>, <span
+                                    class="kw">string</span> <span class="prop">ilce</span>) { <br>
+                                <span class="pl-6 kw">this</span>.<span class="prop">Il</span> = <span
+                                    class="prop">il</span>; <span class="kw">this</span>.<span class="prop">Ilce</span>
+                                = <span class="prop">ilce</span>;<br>
                                 <span class="pl-0">}</span>
-                            </div>
-                            <div class="pl-6 mt-2"><span class="kw">public virtual void</span> <span
-                                    class="func">BilgiYazdir</span>() { ... } <span class="cmt">// Virtual Metot</span>
                             </div>
                             <div class="pl-0 mt-2">}</div>
                         </div>
 
                         <div id="code-group-2">
-                            <div class="cmt mb-2">// 2. Türetme ve Özelleştirme</div>
+                            <div class="cmt mb-2">// Miras ve Polimorfizm</div>
                             <div id="code-inheritance">
-                                <span class="kw">public sealed class</span> <span class="type">Parsel</span> : <span
-                                    class="type">Tasinmaz</span> { <span class="cmt">// Kalıtım & Sealed (Son
-                                    Birim)</span><br>
+                                <span class="kw">public class</span> <span class="type">Yapı</span> : <span
+                                    class="type">Tasinmaz</span> { <br>
                                 <div class="pl-6">
-                                    <span class="kw">public</span> <span class="type">Parsel</span>(<span
-                                        class="kw">string</span> <span class="prop">pNo</span>) : <span
-                                        class="kw">base</span>(<span class="prop">pNo</span>) { <span class="cmt">//
-                                        base Kullanımı</span><br>
-                                    <span class="type">Tasinmaz</span>.<span class="prop">ToplamSayi</span>++;<br>
-                                    <span class="pl-0">}</span>
-                                </div>
-                                <div id="code-override" class="pl-6 mt-3">
-                                    <span class="kw">public override void</span> <span class="func">BilgiYazdir</span>()
-                                    { <span class="cmt">// Override (Özelleştirme)</span><br>
+                                    <span class="kw">public int</span> <span class="prop">KatSayisi</span>;<br>
+                                    <span class="kw">public override void</span> <span class="func">SicilYazdir</span>()
+                                    { <span class="cmt">// Override işlemi</span><br>
                                     <span class="pl-6 func">Console</span>.<span class="func">WriteLine</span>(<span
-                                        class="str">"Parsel Detayları Yazdırıldı."</span>);<br>
+                                        class="str">"Bina Tescili..."</span>);<br>
                                     <span class="pl-0">}</span>
                                 </div>
-                                <div class="pl-0">}</div>
+                                <span class="kw">}</span>
                             </div>
                         </div>
                     </div>
@@ -335,70 +323,44 @@
 
                 <!-- curriculum View -->
                 <div id="cont-teori" class="hidden flex-1 overflow-auto p-10 bg-[#0a0f1d] text-slate-300">
-                    <div class="space-y-12">
-                        <section class="border-l-4 border-blue-600 pl-8">
-                            <h4 class="text-white font-black text-xl mb-6 flex items-center gap-3">
-                                <span class="text-blue-600">01.</span> KADASTRO OOP TEMELLERİ
+                    <div class="space-y-10">
+                        <section class="border-l-2 border-blue-600 pl-6">
+                            <h4 class="text-white font-bold text-lg mb-4 flex items-center gap-2">
+                                <i class="fa-solid fa-magnifying-glass-chart text-blue-600"></i> REALİSTİK VERİ MODELİ
                             </h4>
-                            <div class="grid gap-6 text-[13px]">
-                                <div
-                                    class="p-6 bg-white/5 rounded-3xl border border-white/5 hover:border-blue-500/30 transition-all">
-                                    <b
-                                        class="text-blue-400 block mb-2 uppercase text-[10px] tracking-widest font-black">Sınıf
-                                        vs Nesne (Pafta vs Arsa)</b>
-                                    Sınıf, tapudaki boş bir tescil şablonudur (Blueprint). Nesne ise o şablona göre
-                                    tescil edilmiş, konumu ve alanı belli olan GERÇEK bir parseldir.
+                            <p class="text-[13px] leading-relaxed mb-4">
+                                Kadastroda bir nesne (Object), sadece bir isimden ibaret değildir. İl, İlçe, Mahalle
+                                gibi hiyerarşik bilgilerden oluşan **Karmaşık Tip (Complex Type)**'lara sahiptir.
+                            </p>
+                            <div class="p-5 bg-white/5 rounded-2xl border border-white/5 text-[11px] space-y-3">
+                                <div class="flex justify-between border-b border-white/10 pb-2">
+                                    <span class="text-blue-400">İl/İlçe/Mahalle:</span> <span>Hiyerarşik Yapı</span>
                                 </div>
-                                <div
-                                    class="p-6 bg-white/5 rounded-3xl border border-white/5 hover:border-emerald-500/30 transition-all">
-                                    <b
-                                        class="text-emerald-400 block mb-2 uppercase text-[10px] tracking-widest font-black">Kapsülleme
-                                        (Alan Koruması)</b>
-                                    Taşınmazın yüzölçümü doğrudan değişemez (private). Sadece 'Cins Değişikliği' veya
-                                    'İfraz' gibi yasal yollarla (Public Property/Getter-Setter) güncellenebilir.
+                                <div class="flex justify-between border-b border-white/10 pb-2">
+                                    <span class="text-blue-400">Ada/Parsel:</span> <span>Kimlik Bilgisi (ID)</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-blue-400">Bağımsız Bölüm:</span> <span>İç İçe Nesneler
+                                        (Composition)</span>
                                 </div>
                             </div>
                         </section>
 
-                        <section class="border-l-4 border-amber-600 pl-8">
-                            <h4
-                                class="text-white font-black text-xl mb-6 flex items-center gap-3 italic tracking-tight">
-                                <span class="text-amber-600">02.</span> KADASTRODA SOLID PRENSİPLERİ
+                        <section class="border-l-2 border-amber-600 pl-6">
+                            <h4 class="text-white font-bold text-lg mb-4 flex items-center gap-2">
+                                <i class="fa-solid fa-gem text-amber-600"></i> SOLID DETAYI
                             </h4>
-                            <div class="space-y-6">
-                                <div
-                                    class="p-5 cam-efekti border-white/5 bg-gradient-to-r from-amber-500/5 to-transparent">
-                                    <div class="flex items-center gap-3 mb-3">
-                                        <span
-                                            class="w-8 h-8 rounded-lg bg-amber-500 text-black flex items-center justify-center font-black">S</span>
-                                        <b class="text-white text-xs uppercase tracking-widest">Single
-                                            Responsibility</b>
-                                    </div>
-                                    <p class="text-[12px] text-slate-400 leading-relaxed">
-                                        Parsel sınıfı sadece geometrik ve mülkiyet verisini tutar. Vergi borcu hesaplama
-                                        veya İmar durumu sorgulama işini başka sınıflar yapar.
-                                    </p>
-                                </div>
-                                <div
-                                    class="p-5 cam-efekti border-white/5 bg-gradient-to-r from-amber-500/5 to-transparent">
-                                    <div class="flex items-center gap-3 mb-3">
-                                        <span
-                                            class="w-8 h-8 rounded-lg bg-amber-500 text-black flex items-center justify-center font-black">O</span>
-                                        <b class="text-white text-xs uppercase tracking-widest">Open/Closed</b>
-                                    </div>
-                                    <p class="text-[12px] text-slate-400 leading-relaxed">
-                                        Sisteme 'Zeytinlik' veya 'Sit Alanı' gibi yeni taşınmaz tipleri eklemek için
-                                        mevcut 'Tasinmaz' kodunu değiştirmeyiz, yeni sınıflar türetiriz.
-                                    </p>
-                                </div>
-                            </div>
+                            <p class="text-[13px] leading-relaxed">
+                                **OCP:** Yeni bir "Mera" veya "Orman" tipi eklemek istediğimizde mevcut Taşınmaz kodunu
+                                değiştirmiyoruz; yeni sınıf türetiyoruz. Sistemimiz tescili otomatiğe bağlar.
+                            </p>
                         </section>
                     </div>
                 </div>
 
                 <!-- Log View -->
                 <div id="cont-log"
-                    class="hidden flex-1 overflow-auto p-8 bg-black/80 kod-tipi text-[13px] text-blue-400 scroll-smooth">
+                    class="hidden flex-1 overflow-auto p-8 bg-black/90 kod-tipi text-[12px] text-blue-400 scroll-smooth">
                     <div id="terminal-content" class="space-y-2"></div>
                 </div>
             </div>
@@ -409,27 +371,27 @@
     <div id="education-card" class="ders-karti cam-efekti p-10 border-blue-600/50 shadow-blue-600/40">
         <div class="flex items-center justify-between mb-8">
             <span id="edu-badge"
-                class="px-4 py-1.5 bg-blue-600 rounded-full text-[10px] font-black italic shadow-lg shadow-blue-600/30">SICIL
+                class="px-3 py-1 bg-blue-600/20 text-blue-400 rounded-lg text-[9px] font-black uppercase tracking-widest">EĞİTİM
                 ADIMI: 1</span>
-            <div class="flex gap-1 h-1">
+            <div class="flex gap-1">
                 <div class="w-8 h-1 bg-blue-600 rounded"></div>
-                <div class="w-4 h-1 bg-slate-700 rounded"></div>
+                <div class="w-4 h-1 bg-slate-700/50 rounded"></div>
             </div>
         </div>
         <h3 id="edu-title" class="text-2xl font-black text-white italic tracking-tight uppercase mb-4 leading-tight">
-            Kadastro Örneği</h3>
-        <p id="edu-desc" class="text-slate-300 text-sm leading-relaxed mb-10 border-l-3 border-blue-600 pl-6"></p>
+            Kadastro Laboratuvarı</h3>
+        <p id="edu-desc" class="text-slate-400 text-sm leading-relaxed mb-10 border-l-2 border-blue-600 pl-6"></p>
 
         <div class="flex gap-4">
             <button id="edu-next-btn" onclick="turNext()"
-                class="flex-1 py-5 bg-blue-600 hover:bg-blue-500 text-white rounded-2xl font-black shadow-xl shadow-blue-600/40 transition-all flex items-center justify-center gap-4 active:scale-95 group">
-                <span id="edu-btn-text">ANLADIM, DEVAM ET</span>
-                <i class="fa-solid fa-chevron-right group-hover:translate-x-2 transition-transform"></i>
+                class="flex-1 py-5 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-bold transition-all flex items-center justify-center gap-3 group">
+                <span id="edu-btn-text">İLERLE</span>
+                <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
             </button>
             <button id="edu-wait-btn"
-                class="hidden flex-1 py-5 bg-amber-600 text-white rounded-2xl font-black cursor-wait opacity-80 flex items-center justify-center gap-4 animate-pulse">
-                <i class="fa-solid fa-hourglass-half"></i>
-                <span>TESCİL BEKLENİYOR...</span>
+                class="hidden flex-1 py-5 bg-amber-600/80 text-white rounded-xl font-bold cursor-wait flex items-center justify-center gap-3 animate-pulse">
+                <i class="fa-solid fa-clock"></i>
+                <span>VERİ BEKLENİYOR...</span>
             </button>
         </div>
     </div>
@@ -437,28 +399,49 @@
     <div id="rehber-kaplama"></div>
 
     <script>
+        const RASTGELE_VERI = {
+            iller: ["Ankara", "Istanbul", "Izmir", "Bursa", "Antalya", "Konya", "Adana"],
+            ilceler: ["Cankaya", "Besiktas", "Konak", "Nilufer", "Muratpasa", "Selcuklu", "Seyhan"],
+            mahalleler: ["Yenimahalle", "Cumhuriyet", "Hurriyet", "Ataturk", "Bahcelievler", "Mevlana", "Yeni Dogan"],
+            sahipler: ["Ahmet Yilmaz", "Mehmet Demir", "Ayse Kaya", "Fatma Sahin", "Mustafa Celik", "Elif Koc"]
+        };
+
+        const MODELLER = {
+            parsel: { icon: 'fa-map', clazz: 'Parsel', label: 'Arsa/Arazi', color: 'blue' },
+            bina: { icon: 'fa-building', clazz: 'Yapı', label: 'Bina/Yapı', color: 'emerald' },
+            bolum: { icon: 'fa-door-open', clazz: 'BagimsizBolum', label: 'Daire/Ofis', color: 'purple' }
+        };
+
         let tumNesneler = [];
-        let globalId = 100;
-        let toplamSayiStatic = 0;
+        let globalId = 1000;
+        let sicilSayisiStatic = 0;
         let tur_aktif = false;
         let tur_adim = 0;
 
-        const MODELLER = {
-            parsel: { icon: '🗺️', clazz: 'Parsel', action: 'Ölçüm Yap', color: 'blue', theme: 'from-blue-600/30' },
-            bina: { icon: '🏠', clazz: 'Bina', action: 'Kat Listele', color: 'emerald', theme: 'from-emerald-700/30' }
-        };
+        function rasstgeleSec(dizi) { return dizi[Math.floor(Math.random() * dizi.length)]; }
 
         function tasinmazTuret(key) {
-            const input = document.getElementById('objectNameGirdi');
-            const no = input.value.trim() || (key === 'parsel' ? '101/5' : 'Ada 42');
-            const data = { ...MODELLER[key], id: globalId++, ad: no, alan: 250 };
+            const il = rasstgeleSec(RASTGELE_VERI.iller);
+            const ilce = rasstgeleSec(RASTGELE_VERI.ilceler);
+            const mah = rasstgeleSec(RASTGELE_VERI.mahalleler);
+            const pNo = Math.floor(Math.random() * 900) + 100 + "/" + (Math.floor(Math.random() * 50) + 1);
+            const sahibi = rasstgeleSec(RASTGELE_VERI.sahipler);
+
+            const data = {
+                ...MODELLER[key],
+                id: globalId++,
+                no: pNo,
+                il, ilce, mah, sahibi,
+                alan: Math.floor(Math.random() * 2000) + 100,
+                tescilTarihi: new Date().toLocaleDateString('tr-TR')
+            };
 
             tumNesneler.push(data);
-            toplamSayiStatic++;
+            sicilSayisiStatic++;
             syncUI();
-            input.value = '';
 
-            pushLog(`new ${data.clazz}("${no}"); // Taşınmaz Heap alanına tescil edildi.`, 'kod');
+            pushLog(`[${data.tescilTarihi}] ${data.clazz} tescili yapıldı: @0x${data.id.toString(16)}`, 'kod');
+            pushLog(`> Lokasyon: ${il}/${ilce}/${mah} - Sahibi: ${sahibi}`, 'msg');
 
             if (tur_aktif && turSeti[tur_adim].eylem === 'turet') {
                 setTimeout(turNext, 300);
@@ -469,26 +452,21 @@
             const obj = tumNesneler.find(n => n.id === id);
             if (!obj) return;
 
-            if (tip === 'action') {
-                pushLog(`${obj.ad}.DetayGoster(); // Polimorfizm Devrede`, 'kod');
-                pushLog(`[Kadastro]: ${obj.icon} ${obj.ad} numaralı taşınmazın detayları listelendi.`, 'msg');
-                if (tur_aktif && turSeti[tur_adim].eylem === 'action') turNext();
-            } else if (tip === 'alan') {
-                obj.alan += 50;
-                pushLog(`${obj.ad}.Alan += 50; // Kapsülleme (Set Aksiyonu)`, 'kod');
-                syncUI();
+            if (tip === 'detay') {
+                pushLog(`${obj.clazz}.GetDetay(); // Polimorfizm`, 'kod');
+                pushLog(`[INFO] Ada: ${obj.no.split('/')[0]} | Parsel: ${obj.no.split('/')[1]}`, 'msg');
+                if (tur_aktif && turSeti[tur_adim].eylem === 'detay') turNext();
             } else if (tip === 'sil') {
                 tumNesneler = tumNesneler.filter(n => n.id !== id);
-                toplamSayiStatic--;
+                sicilSayisiStatic--;
                 syncUI();
-                pushLog(`// ~${obj.clazz}() Yıkıcı Metot Çalıştı. Kayıt Arşivlendi.`, 'cmt');
+                pushLog(`// Destructor çalıştı. @0x${id.toString(16)} bellekten silindi.`, 'cmt');
             }
         }
 
         function syncUI() {
-            const stVal = document.getElementById('static-val');
-            stVal.innerText = toplamSayiStatic;
-            document.getElementById('static-display').classList.toggle('hidden', toplamSayiStatic === 0);
+            document.getElementById('static-val').innerText = sicilSayisiStatic;
+            document.getElementById('static-display').classList.toggle('hidden', sicilSayisiStatic === 0);
 
             const wrapper = document.getElementById('objects-wrapper');
             const emptyHint = document.getElementById('empty-heap');
@@ -501,28 +479,29 @@
                 tumNesneler.forEach(o => {
                     const el = document.createElement('div');
                     el.id = `obj-card-${o.id}`;
-                    el.className = `bellek-hucre cam-efekti p-6 bg-gradient-to-br ${o.theme} border-white/5 animate-all`;
+                    el.className = `bellek-hucre cam-efekti p-5 border border-white/5 flex flex-col gap-4`;
                     el.innerHTML = `
-                        <div class="flex justify-between items-start mb-6">
-                            <span class="text-5xl drop-shadow-2xl">${o.icon}</span>
-                            <div class="text-right">
-                                <div class="text-lg font-black text-white">${o.ad}</div>
-                                <div class="text-[9px] font-black uppercase text-white/40 tracking-widest">${o.clazz} Birimi</div>
+                        <div class="flex justify-between items-start">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-lg bg-blue-500/10 flex items-center justify-center text-blue-500 border border-blue-500/20">
+                                    <i class="fa-solid ${o.icon}"></i>
+                                </div>
+                                <div>
+                                    <div class="text-[9px] font-black text-slate-500 uppercase">${o.clazz} @Heap</div>
+                                    <div class="text-sm font-bold text-white">${o.no}</div>
+                                </div>
                             </div>
+                            <span class="badge-kadastro bg-white/5 text-slate-400">#${o.id}</span>
                         </div>
-                        <div class="mb-6 space-y-2">
-                            <div class="flex justify-between text-[10px] font-bold">
-                                <span class="text-slate-500 uppercase">Tapu Alanı (Property)</span>
-                                <span class="text-blue-400">${o.alan} m²</span>
-                            </div>
-                            <div class="w-full h-1.5 bg-black/40 rounded-full overflow-hidden">
-                                <div class="h-full bg-blue-500 transition-all duration-500" style="width: ${Math.min(o.alan / 5, 100)}%"></div>
-                            </div>
+                        <div class="grid grid-cols-2 gap-2 text-[10px]">
+                            <div class="p-2 bg-black/30 rounded-lg"><span class="text-slate-500 block">Şehir</span><b>${o.il}</b></div>
+                            <div class="p-2 bg-black/30 rounded-lg"><span class="text-slate-500 block">İlçe</span><b>${o.ilce}</b></div>
+                            <div class="p-2 bg-black/30 rounded-lg col-span-2"><span class="text-slate-500 block">Mahalle</span><b>${o.mah}</b></div>
+                            <div class="p-2 bg-black/30 rounded-lg col-span-2"><span class="text-slate-500 block">Malik (Property)</span><b class="text-blue-400"><i class="fa-solid fa-user-check mr-2 scale-75"></i>${o.sahibi}</b></div>
                         </div>
-                        <div class="flex gap-3">
-                            <button onclick="eylemYurut(${o.id}, 'action')" id="obj-act-${o.id}" class="flex-1 py-3 bg-white/5 hover:bg-white/10 text-[9px] font-black rounded-xl border border-white/5 tracking-widest transition-all uppercase">${o.action}</button>
-                            <button onclick="eylemYurut(${o.id}, 'alan')" class="flex-1 py-3 bg-white/5 hover:bg-white/10 text-[9px] font-black rounded-xl border border-white/5 tracking-widest transition-all uppercase">İfraz Yap</button>
-                            <button onclick="eylemYurut(${o.id}, 'sil')" class="px-4 bg-rose-900/10 text-rose-500 rounded-xl border border-rose-500/10 hover:bg-rose-600/20 transition-all"><i class="fa-solid fa-archive text-xs"></i></button>
+                        <div class="flex gap-2 mt-2">
+                            <button onclick="eylemYurut(${o.id}, 'detay')" id="obj-detay-${o.id}" class="flex-1 py-3 bg-white/5 hover:bg-white/10 rounded-lg text-[9px] font-bold uppercase tracking-widest border border-white/5">Sorgula</button>
+                            <button onclick="eylemYurut(${o.id}, 'sil')" class="px-5 bg-rose-500/10 text-rose-500 rounded-lg hover:bg-rose-500/20 transition-all border border-rose-500/10"><i class="fa-solid fa-trash-can text-[10px]"></i></button>
                         </div>
                     `;
                     wrapper.appendChild(el);
@@ -534,24 +513,26 @@
         function updateStack() {
             const list = document.getElementById('stack-content');
             list.innerHTML = `
-                <div class="p-4 bg-white/5 border border-white/5 rounded-3xl mb-4 group hover:border-blue-500/30 transition-all cursor-help" title="Yerel değişkenler Stack'tedir">
-                    <div class="text-blue-500 font-black text-[9px] mb-3 flex items-center gap-2">
-                        <i class="fa-solid fa-hashtag text-[8px]"></i> VALUE TYPE (Kadastro No)
+                <div class="p-4 bg-white/5 border border-white/5 rounded-xl mb-2">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="text-[8px] font-black text-blue-500/60 uppercase">Primitive Data</span>
+                        <span class="text-[8px] px-1.5 bg-blue-500/10 text-blue-400 rounded">int</span>
                     </div>
-                    <div class="flex justify-between text-[11px] font-mono">
-                        <span class="text-slate-500">int adaNo =</span> <span class="text-amber-400">752</span>
-                    </div>
+                    <div class="text-[11px] font-mono text-slate-400">int kurumsalKod = <span class="text-amber-400">34001</span>;</div>
                 </div>
             `;
             tumNesneler.forEach(o => {
                 const item = document.createElement('div');
-                item.className = 'p-3 bg-blue-900/10 border border-blue-500/10 rounded-3xl flex justify-between items-center group transition-all cursor-help';
+                item.className = 'p-4 bg-slate-900/60 border border-blue-500/10 rounded-xl flex flex-col gap-2 hover:border-blue-500/40 transition-all';
                 item.innerHTML = `
-                    <div class="flex flex-col">
-                        <b class="text-blue-400 font-black text-[11px] uppercase tracking-tighter">${o.ad}</b>
-                        <span class="text-[8px] text-slate-600 font-bold uppercase tracking-widest mt-1">Pointer @${o.id}</span>
+                    <div class="flex justify-between items-center">
+                        <b class="text-blue-400 font-black text-[10px] uppercase">${o.clazz.toLowerCase()}Ref</b>
+                        <span class="text-[8px] px-1.5 bg-slate-800 text-slate-500 rounded">Ptr</span>
                     </div>
-                    <i class="fa-solid fa-arrow-right-long text-[10px] text-slate-700"></i>
+                    <div class="flex justify-between items-center bg-black/20 p-2 rounded-lg">
+                        <i class="fa-solid fa-link text-[10px] text-blue-600"></i>
+                        <span class="text-[9px] font-mono text-slate-400">-> 0x${o.id.toString(16)}</span>
+                    </div>
                 `;
                 list.appendChild(item);
             });
@@ -559,8 +540,8 @@
 
         function pushLog(val, tip) {
             const box = document.getElementById('terminal-content');
-            const clr = tip === 'kod' ? 'text-white border-l-2 border-blue-500 pl-3' : (tip === 'cmt' ? 'text-slate-500 italic' : 'text-emerald-400 font-black');
-            box.innerHTML += `<div class="py-2 ${clr}"><span class="opacity-20 mr-3">SICIL></span>${val}</div>`;
+            const clr = tip === 'kod' ? 'text-white border-l-2 border-blue-600 pl-3' : (tip === 'cmt' ? 'text-slate-500 italic' : 'text-emerald-500 font-bold');
+            box.innerHTML += `<div class="py-1.5 ${clr}"><span class="opacity-20 mr-2">LOG></span>${val}</div>`;
             box.scrollTop = box.scrollHeight;
         }
 
@@ -574,21 +555,17 @@
         }
 
         const turSeti = [
-            { title: "Kadastro OOP Akademi 🗺️", desc: "Mesleğiniz olan Kadastro terminolojisiyle OOP kavramlarını keşfedin. Parseller, adalar ve tapu sicili üzerinden C# mimarisini inceleyelim.", target: null },
-            { title: "1. Sınıf (Tescil Şablonu) 📐", desc: "'Tasinmaz' sınıfı bir taslaktır. Henüz yer kaplamaz, sadece bir parselin hangi verilere (Ada, Parsel No, Alan) sahip olacağını belirler.", target: "code-group-1", on: () => tabGoster('kod') },
-            { title: "2. Kapsülleme (Güvenli Alan) 🔐", desc: "Taşınmazın yüzölçümü (private _yuzolcumu) dışarıdan rastgele değiştirilemez. Sadece 'Property' protokolü ile kontrol edilebilir.", target: "code-field" },
-            { title: "3. Miras (Kalıtım) 🧬", desc: "Parsel ve Bina sınıfları, ortak 'Tasinmaz' özelliklerini miras alır. Kod tekrarını önler ve hiyerarşi kurar.", target: "code-inheritance" },
-            { title: "4. Tescil ve Bellek ✨", desc: "Şimdi 'Parsel Ekle' diyerek bir şablonu belleğe (Heap) GERÇEK bir taşınmaz nesnesi olarak kaydedin.", target: "btn-taret-parsel", eylemli: true, eylem: 'turet' },
-            { title: "5. Stack & Heap (Arşiv) 🧠", desc: "Stack alanında parselin referansı (dosya no), Heap alanında ise tüm parsel verileri oluştu. Bellek yönetimi tam burada başlar.", target: "stack-area" },
-            { title: "6. Statik Üyeler ⚡", desc: "Tüm tapu dairesi için TEK olan veriler statiktir. Sağ üstteki 'ToplamSayi' her nesne için ayrı değil, sınıfın tamamı için tektir.", target: "static-display" },
-            { title: "7. Polimorfizm (Çok Biçimlilik) 🎭", desc: "Her taşınmazın detay gösterme biçimi farklıdır. Butona basarak 'Virtual/Override' mekanizmasının nasıl çalıştığını görün.", targetSelector: () => tumNesneler[0] ? `obj-act-${tumNesneler[0].id}` : null, eylemli: true, eylem: 'action' },
-            { title: "8. Soyutlama (Interface) ☁️", desc: "'IKaydedilebilir' bir sözleşmedir. Sisteme eklenen her şeyin mutlaka tescil edilmesini garanti eder.", target: "code-interface" },
-            { title: "9. SOLID ve Gelecek 💎", desc: "Müfredat sekmesinde, Kadastro projelerinde SOLID mimarisinin nasıl uygulandığını detaylıca inceleyebilirsiniz.", target: "tab-teori", on: () => tabGoster('teori') },
-            { title: "Eğitim Tamamlandı! 🏆", desc: "Kendi mesleğinizden örneklerle OOP dünyasına hakim oldunuz. Artık istediğiniz gibi taşınmaz tescil edebilirsiniz!", target: null }
+            { title: "Kadastro Master Modülü 🏛️", desc: "Laboratuvarımız artık rastgele veri üretebilen bir veritabanı gibi çalışıyor. Her tescil işleminde gerçekçi il, ilçe ve malik bilgileri oluşacak.", target: null },
+            { title: "1. Karmaşık Tipler (Complex Types) 🧩", desc: "Taşınmaz sınıfına bakın. Sadece tek değişken değil, hiyerarşik (Il, Ilce, Mahalle) bir yapı kurduk.", target: "code-group-1", on: () => tabGoster('kod') },
+            { title: "2. Veri Üretimi (Instantiation) 🏗️", desc: "Şimdi 'Parsel Oluştur' butonuna basın. Arka plandaki rastgele veri motorunun nasıl çalıştığını görün.", target: "btn-taret-parsel", eylemli: true, eylem: 'turet' },
+            { title: "3. Tescil Belleği (Heap) 🕋", desc: "Oluşan nesneye bakın. İl, İlçe ve Malik (Sahip) bilgileri gerçek bir sicil kaydı gibi belleğe yerleşti.", target: "heap-area" },
+            { title: "4. Referans Takibi (Stack) 🔗", desc: "Stack alanındaki 'Ptr' (Pointer) değerine bakın. Bellekteki (Heap) gerçek nesneye işaret eden bir adres oluştu.", target: "stack-area" },
+            { title: "5. Polimorfizm Uygulaması 🎭", desc: "Farklı türdeki taşınmazların 'Sorgula' butonuna basarak koddaki 'Override' metodunun nasıl tetiklendiğini Terminal'den izleyin.", targetSelector: () => tumNesneler[0] ? `obj-detay-${tumNesneler[0].id}` : null, eylemli: true, eylem: 'detay' },
+            { title: "Başarılar! 🏆", desc: "Kadastro veritabanı simülasyonu artık hazır. İstediğiniz kadar kayıt ekleyip silebilir, OOP kurallarını gerçekçi verilerle deneyimleyebilirsiniz.", target: null }
         ];
 
         function akademiTurunuBaslat() {
-            tur_aktif = true; tur_adim = 0; tumNesneler = []; toplamSayiStatic = 0;
+            tur_aktif = true; tur_adim = 0; tumNesneler = []; sicilSayisiStatic = 0;
             syncUI();
             document.getElementById('rehber-kaplama').style.display = 'block';
             document.getElementById('education-card').style.display = 'block';
@@ -611,24 +588,16 @@
             const step = turSeti[tur_adim];
             document.getElementById('edu-title').innerText = step.title;
             document.getElementById('edu-desc').innerText = step.desc;
-            document.getElementById('edu-badge').innerText = `SICIL ADIMI: ${tur_adim + 1} / ${turSeti.length}`;
+            document.getElementById('edu-badge').innerText = `EĞİTİM ADIMI: ${tur_adim + 1} / ${turSeti.length}`;
 
             const nextBtn = document.getElementById('edu-next-btn');
             const waitBtn = document.getElementById('edu-wait-btn');
-
-            if (step.eylemli) {
-                nextBtn.classList.add('hidden');
-                waitBtn.classList.remove('hidden');
-            } else {
-                nextBtn.classList.remove('hidden');
-                waitBtn.classList.add('hidden');
-            }
+            if (step.eylemli) { nextBtn.classList.add('hidden'); waitBtn.classList.remove('hidden'); }
+            else { nextBtn.classList.remove('hidden'); waitBtn.classList.add('hidden'); }
 
             if (step.on) step.on();
-
             document.querySelectorAll('.vurgu').forEach(el => el.classList.remove('vurgu'));
             let target = step.target ? document.getElementById(step.target) : (step.targetSelector ? document.getElementById(step.targetSelector()) : null);
-
             const card = document.getElementById('education-card');
 
             if (target) {
@@ -636,23 +605,19 @@
                 target.style.pointerEvents = 'auto';
                 target.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 const r = target.getBoundingClientRect();
-                const cardHeight = card.offsetHeight || 320;
+                const cardHeight = card.offsetHeight || 300;
                 const cardWidth = card.offsetWidth || 440;
-
                 let t, l;
                 if (r.bottom + cardHeight + 40 < window.innerHeight) { t = r.bottom + 40; } else { t = r.top - cardHeight - 40; }
                 l = r.left + (r.width / 2) - (cardWidth / 2);
                 if (l < 20) l = 20;
                 if (l + cardWidth > window.innerWidth - 20) l = window.innerWidth - cardWidth - 20;
                 if (t < 20) t = 20;
-
                 card.style.top = t + 'px';
                 card.style.left = l + 'px';
                 card.style.transform = 'none';
             } else {
-                card.style.top = '50%';
-                card.style.left = '50%';
-                card.style.transform = 'translate(-50%, -50%)';
+                card.style.top = '50%'; card.style.left = '50%'; card.style.transform = 'translate(-50%, -50%)';
             }
         }
     </script>
